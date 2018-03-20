@@ -2,3 +2,4 @@
 *.tmp
 *.tmp
 docs/~$scriptif_fonctionnel_technique.docx
+api/node_modules/*
