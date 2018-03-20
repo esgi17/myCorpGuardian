@@ -1,3 +1,3 @@
 # myCorpGuardian
 
-Repository contenant la documentation du projet et les fichiers communs aux autres application
+Repository contenant le code et la documentation de l'application "client lourd" myCorpGuardian
