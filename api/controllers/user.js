@@ -18,6 +18,18 @@ UserController.add = function(name, surname, login, job, isManager, group_id) {
     });
 };
 
+UserController.find = function(id) {
+    return User.findById(id);
+}
+
+UserController.delete = function(id) {
+  return User.destroy({
+    where: {
+      id : id
+    }
+  });
+}
+
 /**
 *  Récupération des élements en base
 **/

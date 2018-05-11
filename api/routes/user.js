@@ -27,9 +27,9 @@ userRouter.get('/', function(req, res) {
 /*
 * Ajout d'un User
 * @method : post
-* @route : /user/add
+* @route : /user/
 */
-userRouter.post('/add', function(req, res) {
+userRouter.post('/', function(req, res) {
     const name = req.body.name;
     const surname = req.body.surname;
     const login = req.body.login;
@@ -43,11 +43,66 @@ userRouter.post('/add', function(req, res) {
     }
     UserController.add(name, surname, login, job, isManager, group_id)
       .then( (user) => {
-          res.status(201).json(user);
+          res.status(200).json(user);
       }).catch( (err) => {
           console.error(err);
           res.status(500).end();
       });
 });
 
+/*
+* Suppression d'un User
+* @method : delete
+* @route : /user/
+*/
+userRouter.delete('/:id', function (req, res) {
+  var id = parseInt(req.params.id);
+  UserController.find(id)
+  .then( (user) => {
+    if (user) {
+      UserController.delete(id)
+        .then( user => {
+            res.status(200).json('User deleted');
+        });
+    } else {
+      res.status(400).json('User not found');
+    }
+    }).catch( (err) => {
+        console.error(err);
+        res.status(500).end();
+    });
+});
+
+/*
+* Modification d'un User
+* @method : patch
+* @route : /user/
+*/
+/*
+userRouter.patch('/:id', function(req, res) {
+  const newUser = {};
+  newUser.name = req.body.name;
+  newUser.surname = req.body.surname;
+  newUser.login = req.body.login;
+  newUser.job = req.body.job || "host";
+  newUser.isManager = req.body.isManager || 0;
+  newUser.group_id = req.body.group_id || 0;
+  UserController.find({
+    where {
+      id : req.params.id
+    }
+  }).then( (user) => {
+    if (user) {
+      user.updateAttributes(newUser).then( user => {
+      res.status(200).json(user, msg: 'User updated');
+      });
+    } else {
+      res.status(400).json(msg: 'User not found');
+    }
+    }).catch( (err) => {
+        console.error(err);
+        res.status(500).end();
+    });
+});
+*/
 module.exports = userRouter;
