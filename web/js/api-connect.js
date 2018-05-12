@@ -1,13 +1,14 @@
 var app = app || {};
 
 app.api = {
-    post : (route, data) => {
-        var url = app.config.pathAPI + route;
+    post : (route, data, method) => {
+        var url = app.main.api + route;
         $.ajax({
             url : url,
             type : 'post',
             dataType  : 'json',
-            data : data
+            data : data,
+            crossDomain: true
         })
         .done( function(res) {
             console.log(res);
@@ -17,16 +18,18 @@ app.api = {
         });
     },
 
-    get : (route) => {
-        var url = app.config.pathAPI + route;
+    get : (route, method) => {
+      console.log("ok");
+        var url = app.main.api + route;
         $.ajax({
             url : url,
             method : 'get',
-            dataType : 'json'
+            dataType : 'json',
+            crossDomain: true
         })
         .done( function(res) {
             console.log(res);
-            return res;
+            method(res);
         })
         .fail( function(err) {
             console.error(err);
