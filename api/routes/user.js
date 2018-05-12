@@ -78,31 +78,28 @@ userRouter.delete('/:id', function (req, res) {
 * @method : patch
 * @route : /user/
 */
-/*
 userRouter.patch('/:id', function(req, res) {
-  const newUser = {};
-  newUser.name = req.body.name;
-  newUser.surname = req.body.surname;
-  newUser.login = req.body.login;
-  newUser.job = req.body.job || "host";
-  newUser.isManager = req.body.isManager || 0;
-  newUser.group_id = req.body.group_id || 0;
-  UserController.find({
-    where {
-      id : req.params.id
-    }
-  }).then( (user) => {
+  const name = req.body.name;
+  const surname = req.body.surname;
+  const login = req.body.login;
+  const job = req.body.job || "host";
+  const isManager = req.body.isManager || 0;
+  const group_id = req.body.group_id || 0;
+  var id = parseInt(req.params.id);
+  UserController.find(id)
+  .then( (user) => {
     if (user) {
-      user.updateAttributes(newUser).then( user => {
-      res.status(200).json(user, msg: 'User updated');
+      UserController.updte(id, name, surname, login, job, isManager, group_id)
+      .then( user => {
+      res.status(200).json('User updated');
       });
     } else {
-      res.status(400).json(msg: 'User not found');
+      res.status(400).json('User not found');
     }
     }).catch( (err) => {
         console.error(err);
         res.status(500).end();
     });
 });
-*/
+
 module.exports = userRouter;

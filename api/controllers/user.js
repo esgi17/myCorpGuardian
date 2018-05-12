@@ -18,9 +18,16 @@ UserController.add = function(name, surname, login, job, isManager, group_id) {
     });
 };
 
+/**
+*  Retrouver un User en base
+**/
 UserController.find = function(id) {
     return User.findById(id);
 }
+
+/**
+* Suppression d'un User en base
+**/
 
 UserController.delete = function(id) {
   return User.destroy({
@@ -29,6 +36,24 @@ UserController.delete = function(id) {
     }
   });
 }
+
+/**
+*  Modification d'un User en base
+**/
+UserController.updte = function(id, name, surname, login, job, isManager, group_id) {
+    return User.update({
+        name: name,
+        surname: surname,
+        login: login,
+        job: job,
+        isManager: isManager,
+        group_id: group_id
+    },{
+      where: {
+        id : id
+      }
+    });
+};
 
 /**
 *  Récupération des élements en base
