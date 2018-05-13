@@ -1,2 +1,0 @@
-# myCorpGuardian - WEB
-
