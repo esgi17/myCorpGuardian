@@ -40,7 +40,7 @@ UserController.delete = function(id) {
 /**
 *  Modification d'un User en base
 **/
-UserController.updte = function(id, name, surname, login, job, isManager, group_id) {
+UserController.update = function(id, name, surname, login, job, isManager, group_id) {
     return User.update({
         name: name,
         surname: surname,

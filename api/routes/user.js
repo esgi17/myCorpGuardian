@@ -89,7 +89,7 @@ userRouter.patch('/:id', function(req, res) {
   UserController.find(id)
   .then( (user) => {
     if (user) {
-      UserController.updte(id, name, surname, login, job, isManager, group_id)
+      UserController.update(id, name, surname, login, job, isManager, group_id)
       .then( user => {
       res.status(200).json('User updated');
       });
