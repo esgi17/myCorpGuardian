@@ -4,7 +4,7 @@ module.exports = {
       dialect : 'mysql',
       dbname : 'my_corp_guardian',
       user : 'root',
-      password : '',
+      password : 'root',
       port : 3306
     }
 }
