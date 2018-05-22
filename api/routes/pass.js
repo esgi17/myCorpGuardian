@@ -7,10 +7,13 @@ const PassController = controllers.PassController;
 const passRouter = express.Router();
 passRouter.use(bodyParser.json());
 
-/*
-* Récupération des badges
-* @method : get
-* @route : /pass/
+/**
+* @api {get} /Pass GET Pass
+* @apiGroup pass
+* @apiUse searchById
+* @apiUse passCreated
+* @apiUse error500
+* @apiUse error404
 */
 passRouter.get('/', function(req, res) {
     const id = req.body.id;
@@ -24,10 +27,14 @@ passRouter.get('/', function(req, res) {
       });
 });
 
-/*
-* Ajout d'un badge
-* @method : post
-* @route : /user/
+/**
+* @api {post} /Pass ADD Pass
+* @apiGroup pass
+* @apiUse passExample
+* @apiUse passCreated
+* @apiUse error500
+* @apiUse error404
+* @apiUse error400
 */
 passRouter.post('/', function(req, res) {
     const user_id = req.body.user_id;
@@ -45,10 +52,20 @@ passRouter.post('/', function(req, res) {
       })
 });
 
-/*
-* Suppression d'un badge
-* @method : delete
-* @route : /pass/
+/**
+* @api {delete} /pass DELETE Pass
+* @apiGroup pass
+* @apiUse searchById
+* @apiSuccessExample
+*    HTTP/1.1 200 Pass deleted
+*     {
+*       "success" : true
+*       "status": 200
+*       "message": "Pass deleted"
+*     }
+* @apiUse error500
+* @apiUse error404
+* @apiUse error400
 */
 passRouter.delete('/:id', function (req, res) {
   var id = parseInt(req.params.id);
@@ -68,10 +85,14 @@ passRouter.delete('/:id', function (req, res) {
     });
 });
 
-/*
-* Affectation / Modification d'un badge
-* @method : patch
-* @route : /badge/
+/**
+* @api {put} /Pass UPDATE Pass
+* @apiGroup pass
+* @apiUse passExample
+* @apiUse passCreated
+* @apiUse error500
+* @apiUse error404
+* @apiUse error400
 */
 passRouter.patch('/:id', function(req, res) {
   const user_id = req.body.user_id || 0;
