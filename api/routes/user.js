@@ -12,13 +12,21 @@ userRouter.use(bodyParser.json());
 * @method : get
 * @route : /user/
 */
-userRouter.get('/', function(req, res) {
-    const login = req.query.login;
-    UserController.getAll(login)
+userRouter.get('/:id?', function(req, res) {
+    // Récupération des parametres
+    const id = req.params.id;
+    // On appelle la methode
+    UserController.getAll(id)
       .then( (user) => {
-          res.json(user);
+          // Si la méthode ne renvoie pas d'erreur, on renvoie le resultat
+          res.status(201).json({
+              success : true,
+              status : 201,
+              datas : user
+          });
       })
       .catch( (err) => {
+          // Sinon, on renvoie un erreur systeme
           console.error(err);
           res.status(500).end();
       });
@@ -30,21 +38,34 @@ userRouter.get('/', function(req, res) {
 * @route : /user/
 */
 userRouter.post('/', function(req, res) {
+    /* Récupération des parametres */
     const name = req.body.name;
     const surname = req.body.surname;
     const login = req.body.login;
     const job = req.body.job || "host";
-    const isManager = req.body.isManager || 0;
     const group_id = req.body.group_id || 0;
-    console.log("Name : " + name);
+
+    // Si les parametres obligatoires ne sont pas tous remplis
     if( name === undefined || surname === undefined || login === undefined ) {
-        res.status(400).end();
+        // Renvoi d'une erreur
+        res.status(400).json({
+            success : false,
+            status : 400,
+            message : "Bad Request"
+        }).end();
         return;
     }
+    // Sinon, on appelle la methode
     UserController.add(name, surname, login, job, isManager, group_id)
       .then( (user) => {
-          res.status(200).json(user);
+          // Si la methode ne renvoie pas d'erreur, on renvoie le résultat
+          res.status(200).json({
+              success : true,
+              status : 201,
+              datas : user
+          });
       }).catch( (err) => {
+          // Sinon, on renvoie un erreur systeme
           console.error(err);
           res.status(500).end();
       });
@@ -55,22 +76,36 @@ userRouter.post('/', function(req, res) {
 * @method : delete
 * @route : /user/
 */
-userRouter.delete('/:id', function (req, res) {
-  var id = parseInt(req.params.id);
-  UserController.find(id)
-  .then( (user) => {
-    if (user) {
-      UserController.delete(id)
-        .then( user => {
-            res.status(200).json('User deleted');
-        });
-    } else {
-      res.status(400).json('User not found');
-    }
-    }).catch( (err) => {
-        console.error(err);
-        res.status(500).end();
-    });
+userRouter.delete('/:id?', function (req, res) {
+    // Récupération des parametres
+    var id = parseInt(req.params.id);
+    // Appel de la methode
+    UserController.getAll(id)
+      .then( (user) => {
+          // Si la methode ne renvoie pas d'erreur
+          if (user) {
+              // Si l'objet de retour est defini, on appelle la methode
+              UserController.delete(id)
+                .then( (user) => {
+                    // Si la methode ne renvoie pas d'erreur, on renvoie les données
+                    res.status(200).json({
+                        success : true,
+                        status : 200,
+                        datas : user
+                    });
+                });
+              // Si la methode renvoie un objet undefined, on renvoie une erreur
+          } else {
+            res.status(400).json({
+                  success : false,
+                  status : 400,
+                  message : "Bad Request"
+            });
+          }
+      }).catch( (err) => {
+          console.error(err);
+          res.status(500).end();
+      });
 });
 
 /*
@@ -78,24 +113,32 @@ userRouter.delete('/:id', function (req, res) {
 * @method : patch
 * @route : /user/
 */
-userRouter.patch('/:id', function(req, res) {
+userRouter.put('/:id?', function(req, res) {
   const name = req.body.name;
   const surname = req.body.surname;
   const login = req.body.login;
   const job = req.body.job || "host";
-  const isManager = req.body.isManager || 0;
   const group_id = req.body.group_id || 0;
-  var id = parseInt(req.params.id);
-  UserController.find(id)
-  .then( (user) => {
-    if (user) {
-      UserController.update(id, name, surname, login, job, isManager, group_id)
-      .then( user => {
-      res.status(200).json('User updated');
-      });
-    } else {
-      res.status(400).json('User not found');
-    }
+  const id = parseInt(req.params.id);
+
+  UserController.getAll(id)
+    .then( (user) => {
+      if (user) {
+          UserController.update(id, name, surname, login, job, group_id)
+            .then( (user) => {
+                res.status(200).json({
+                    success : true,
+                    status : 200,
+                    datas : user
+                });
+            });
+      } else {
+          res.status(400).json({
+              success: false,
+              status : 400,
+              message : "Bad Request"
+          });
+      }
     }).catch( (err) => {
         console.error(err);
         res.status(500).end();

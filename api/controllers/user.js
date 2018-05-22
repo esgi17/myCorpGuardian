@@ -19,16 +19,8 @@ UserController.add = function(name, surname, login, job, isManager, group_id) {
 };
 
 /**
-*  Retrouver un User en base
-**/
-UserController.find = function(id) {
-    return User.findById(id);
-}
-
-/**
 * Suppression d'un User en base
 **/
-
 UserController.delete = function(id) {
   return User.destroy({
     where: {
@@ -40,13 +32,12 @@ UserController.delete = function(id) {
 /**
 *  Modification d'un User en base
 **/
-UserController.update = function(id, name, surname, login, job, isManager, group_id) {
+UserController.update = function(id, name, surname, login, job, group_id) {
     return User.update({
         name: name,
         surname: surname,
         login: login,
         job: job,
-        isManager: isManager,
         group_id: group_id
     },{
       where: {
@@ -58,7 +49,7 @@ UserController.update = function(id, name, surname, login, job, isManager, group
 /**
 *  Récupération des élements en base
 **/
-UserController.getAll = function (search) {
+UserController.getAll = function (id) {
     const options = {
       include: [{
         model: ModelIndex.Group,
@@ -67,14 +58,15 @@ UserController.getAll = function (search) {
     };
     const where = {};
 
-    if( search !== undefined ) {
-        where.login = {
-            [Op.like]:`${search}%`
+    if( id !== undefined ) {
+        where.id = {
+            [Op.eq] : `${id}`
         };
     }
     options.where = where;
     return User.findAll(options);
 };
+
 
 // Export du controller
 module.exports = UserController;
