@@ -8,15 +8,21 @@ const GroupController = function() { };
 * Récupération des badges
 **/
 GroupController.getAll = function( id ) {
-    if( id !== undefined ) {
-      return Group.findAll({
-        where : {
-            id : id
-        }
-      });
-    }else{
-      return Group.findAll();
-    }
+  const options = {
+    include: [{
+       model: ModelIndex.User,
+       as : 'users'
+     }]
+  };
+  const where = {};
+
+  if( id !== undefined ) {
+      where.id = {
+          [Op.eq] : `${id}`
+      };
+  }
+  options.where = where;
+  return Group.findAll(options);
 };
 /**
 *  Retrouver un groupe en base
@@ -28,12 +34,24 @@ GroupController.find = function( id ) {
 /**
 *  Creation d'un groupe
 **/
-GroupController.add = function(description) {
+GroupController.add = function(name) {
     return Group.create({
-      description : description
+        name : name
     });
 };
 
+
+GroupController.update = function(id, name) {
+    return Group.update({
+          name : name,
+      },
+      {
+          where : {
+              id : id
+          }
+      }
+    );
+}
 
 /**
 * Suppression d'un groupe

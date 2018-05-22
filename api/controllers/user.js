@@ -40,12 +40,22 @@ UserController.update = function(id, name, surname, login, job, group_id) {
         job: job,
         group_id: group_id
     },{
-      where: {
-        id : id
-      }
+        where: {
+          id : id
+        }
     });
 };
 
+UserController.affectGroup = function(group_id, user_id) {
+    return User.update({
+        group_id : group_id
+    },
+    {
+        where : {
+            id : user_id
+        }
+    });
+}
 /**
 *  Récupération des élements en base
 **/
