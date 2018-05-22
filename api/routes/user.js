@@ -7,10 +7,13 @@ const UserController = controllers.UserController;
 const userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
-/*
-* Récupération des users
-* @method : get
-* @route : /user/
+/**
+* @api {get} /User GET User
+* @apiGroup user
+* @apiUse searchById
+* @apiUse userCreated
+* @apiUse error500
+* @apiUse error404
 */
 userRouter.get('/:id?', function(req, res) {
     // Récupération des parametres
@@ -32,10 +35,15 @@ userRouter.get('/:id?', function(req, res) {
       });
 });
 
-/*
-* Ajout d'un User
-* @method : post
-* @route : /user/
+
+/**
+* @api {post} /User ADD User
+* @apiGroup user
+* @apiUse userExample
+* @apiUse userCreated
+* @apiUse error500
+* @apiUse error404
+* @apiUse error400
 */
 userRouter.post('/', function(req, res) {
     /* Récupération des parametres */
@@ -71,10 +79,20 @@ userRouter.post('/', function(req, res) {
       });
 });
 
-/*
-* Suppression d'un User
-* @method : delete
-* @route : /user/
+/**
+* @api {delete} /user DELETE User
+* @apiGroup user
+* @apiUse searchById
+* @apiSuccessExample
+*    HTTP/1.1 200 User deleted
+*     {
+*       "success" : true
+*       "status": 200
+*       "message": "User deleted"
+*     }
+* @apiUse error500
+* @apiUse error404
+* @apiUse error400
 */
 userRouter.delete('/:id?', function (req, res) {
     // Récupération des parametres
@@ -108,10 +126,14 @@ userRouter.delete('/:id?', function (req, res) {
       });
 });
 
-/*
-* Modification d'un User
-* @method : patch
-* @route : /user/
+/**
+* @api {put} /User UPDATE User
+* @apiGroup user
+* @apiUse userExample
+* @apiUse userCreated
+* @apiUse error500
+* @apiUse error404
+* @apiUse error400
 */
 userRouter.put('/:id?', function(req, res) {
   const name = req.body.name;
