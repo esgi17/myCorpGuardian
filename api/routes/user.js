@@ -7,9 +7,9 @@ const UserController = controllers.UserController;
 const userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
-/*
+/**
 * Récupération des users
-* @method : get
+* method : get
 * @route : /user/
 */
 userRouter.get('/', function(req, res) {
