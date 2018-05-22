@@ -7,10 +7,40 @@ const UserController = controllers.UserController;
 const userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
-/*
-* Récupération des users
-* @method : get
-* @route : /user/
+/**
+* @api {get} /User get User
+* @apiGroup user
+* @apiParam {Integer} id User id
+* @apiParamExample {json} Input
+*    {
+*      "id": 1
+*    }
+
+* @apiSuccess {Object[]} User
+* @apiSuccess {Integer} User.id User id
+* @apiSuccess {String} User.Name User name
+* @
+* @apiSuccess {Date} User.updated_at Update's date
+* @apiSuccess {Date} User.created_at Register's date
+* @apiSuccessExample {json} Success
+*    HTTP/1.1 201 OK
+*    [{
+*      "id": 1,
+*      "name": "Name",
+       "surname" : "Surname",
+       "job" : "Job",
+       "group" :
+       {
+          "id" : 1,
+          "name" : "Group1"
+       }
+*      "updated_at": "2018-05-14T00:00:00.000Z",
+*      "created_at": "2018-05-14T00:00:00.000Z"
+*    }]
+* @apiErrorExample
+*    HTTP/1.1 500 Internal Server Error
+* @apiErrorExample
+*    HTTP/1.1 404 Not Found
 */
 userRouter.get('/', function(req, res) {
     const login = req.query.login;
@@ -24,10 +54,51 @@ userRouter.get('/', function(req, res) {
       });
 });
 
-/*
-* Ajout d'un User
-* @method : post
-* @route : /user/
+
+/**
+* @api {post} /User add User
+* @apiGroup user
+* @apiParam {String} name User name
+* @apiParam {String} surname User surname
+* @apiParam {String} job User job
+* @apiParam {Integer} group_id User group_id
+* @apiParamExample {json} Input
+*    {
+*      "name": "John",
+       "surname" : "Doe",
+       "job" : "Host",
+       "group_id" : 0
+*    }
+
+* @apiSuccess {Object[]} User
+* @apiSuccess {Integer} User.id User id
+* @apiSuccess {String} User.Name User name
+* @apiSuccess {String} User.job User job
+* @apiSuccess {Object} User.Group User group
+* @apiSuccess {integer} Group.id User Group id
+* @apiSuccess {Date} User.updated_at Update's date
+* @apiSuccess {Date} User.created_at Register's date
+* @apiSuccessExample {json} Success
+*    HTTP/1.1 201 Created
+*    [{
+*      "id": "1"
+*      "name": "John"
+       "surname" : "Doe"
+       "job" : "Host",
+       "group" :
+       {
+          "id" : 1,
+          "name" : "Group1"
+       }
+*      "updated_at": "2018-05-14T00:00:00.000Z",
+*      "created_at": "2018-05-14T00:00:00.000Z"
+*    }]
+* @apiErrorExample
+*    HTTP/1.1 500 Internal Server Error
+* @apiErrorExample
+*    HTTP/1.1 404 Not Found
+* @apiErrorExample
+*    HTTP/1.1 400 Bad Request
 */
 userRouter.post('/', function(req, res) {
     const name = req.body.name;
@@ -50,13 +121,28 @@ userRouter.post('/', function(req, res) {
       });
 });
 
-/*
-* Suppression d'un User
-* @method : delete
-* @route : /user/
+/**
+* @api {delete} /user delete User
+* @apiGroup user
+* @apiParam {Integer} id User id
+* @apiParamExample {json} Input
+*    {
+*      "id" : id
+*    }
+* @apiSuccessExample
+*    HTTP/1.1 204 No Content
+* @apiErrorExample
+*    HTTP/1.1 500 Internal Server Error
+* @apiErrorExample
+*    HTTP/1.1 404 Not Found
+* @apiErrorExample
+*    HTTP/1.1 400 Bad Request
 */
 userRouter.delete('/:id', function (req, res) {
   var id = parseInt(req.params.id);
+  if( id === undefined ) {
+      res.status(400).json('Missing parameters');
+  }
   UserController.find(id)
   .then( (user) => {
     if (user) {
@@ -67,10 +153,10 @@ userRouter.delete('/:id', function (req, res) {
     } else {
       res.status(400).json('User not found');
     }
-    }).catch( (err) => {
+  }).catch( (err) => {
         console.error(err);
         res.status(500).end();
-    });
+  });
 });
 
 /*
