@@ -35,7 +35,6 @@ userRouter.get('/:id?', function(req, res) {
       });
 });
 
-
 /**
 * @api {post} /User ADD User
 * @apiGroup user

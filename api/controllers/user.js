@@ -77,6 +77,5 @@ UserController.getAll = function (id) {
     return User.findAll(options);
 };
 
-
 // Export du controller
 module.exports = UserController;

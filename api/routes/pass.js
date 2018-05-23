@@ -119,39 +119,39 @@ passRouter.delete('/', function (req, res) {
 * @apiUse error400
 */
 passRouter.put('/:id', function(req, res) {
-  const user_id = req.body.user_id || 0;
-  const pass_id = req.body.pass_id;
+    const user_id = req.body.user_id || 0;
+    const pass_id = req.body.pass_id;
 
-  if( pass_id === undefined ) {
-      res.status(400).json({
-          success : false,
-          status : 400,
-          message : "Bad Request"
-      }).end();
-      return;
-  }
-  UserController.getAll(id)
-    .then( (user) => {
-        if (user) {
-            PassController.affect(id, user_id)
-                .then( (user) => {
-                    res.status(200).json({
-                        success : true,
-                        status : 200,
-                        datas : user
-                });
-            });
-        } else {
-            res.status(400).json({
-                success : false,
-                status : 400,
-                datas : "Bad Request"
-            });
-        }
-    }).catch( (err) => {
-        console.error(err);
-        res.status(500).end();
-    });
+    if( pass_id === undefined ) {
+        res.status(400).json({
+            success : false,
+            status : 400,
+            message : "Bad Request"
+        }).end();
+        return;
+    }
+    UserController.getAll(id)
+      .then( (user) => {
+          if (user) {
+              PassController.affect(id, user_id)
+                  .then( (user) => {
+                      res.status(200).json({
+                          success : true,
+                          status : 200,
+                          datas : user
+                  });
+              });
+          } else {
+              res.status(400).json({
+                  success : false,
+                  status : 400,
+                  datas : "Bad Request"
+              });
+          }
+      }).catch( (err) => {
+          console.error(err);
+          res.status(500).end();
+      });
 });
 
 
