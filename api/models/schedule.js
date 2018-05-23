@@ -1,20 +1,20 @@
 module.exports = function (sequelize, DataTypes) {
-    const User = sequelize.define('User', {
+    const Schedule = sequelize.define('Schedule', {
         id : {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
         },
-        firstname : {
-            type: DataTypes.STRING,
+        h_start: {
+            type: DataTypes.TIME,
             allowNull: false
         },
-        lastname : {
-            type: DataTypes.STRING,
+        h_stop: {
+            type: DataTypes.TIME,
             allowNull: false
         },
-        job : {
-            type: DataTypes.STRING,
+        day: {
+            type: DataTypes.BIGINT,
             allowNull: false
         }
     },
@@ -23,14 +23,17 @@ module.exports = function (sequelize, DataTypes) {
         underscored: true,
         freezeTableName: true
     });
-    User.associate = _associate;
-    return User;
+    Schedule.associate = _associate;
+    return Schedule;
 }
 
 // INTERNAL
 
 function _associate(models) {
-    models.User.belongsTo(models.Group, {
-      as : 'group'
-    });
+  models.Schedule.belongsTo(models.Door, {
+    as : 'door'
+  });
+  models.Schedule.belongsTo(models.Group, {
+    as : 'group'
+  });
 }

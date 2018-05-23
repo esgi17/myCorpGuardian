@@ -4,25 +4,14 @@ const Op = ModelIndex.sequelize.Op;
 
 const GroupController = function() { };
 
-/**
-* Récupération des badges
-**/
-GroupController.getAll = function( id ) {
-    if( id !== undefined ) {
-      return Group.findAll({
-        where : {
-            id : id
-        }
-      });
-    }else{
-      return Group.findAll();
-    }
-};
+
 /**
 *  Retrouver un groupe en base
 **/
 GroupController.find = function( id ) {
+  if ( id != undefined ){
     return Group.findById( id );
+  }
 }
 
 /**
@@ -45,5 +34,20 @@ GroupController.delete = function ( id ) {
     }
   });
 }
+
+/**
+*  Modification d'un groupe en base
+**/
+GroupController.update = function( id, description ) {
+    return Group.update({
+        description: description
+    },{
+      where: {
+        id : id
+      }
+    });
+};
+
+
 // Export du controller
 module.exports = GroupController;

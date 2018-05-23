@@ -1,15 +1,19 @@
 module.exports = function (sequelize, DataTypes) {
-    const Event = sequelize.define('Event', {
+    const Captor = sequelize.define('Captor', {
         id : {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
         },
-        date: {
-            type: DataTypes.DATE,
+        ip: {
+            type: DataTypes.STRING,
             allowNull: false
         },
-        data: {
+        type: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        description: {
             type: DataTypes.STRING,
             allowNull: false
         }
@@ -19,14 +23,11 @@ module.exports = function (sequelize, DataTypes) {
         underscored: true,
         freezeTableName: true
     });
-    Event.associate = _associate;
-    return Event;
+    //Captor.associate = _associate;
+    return Captor;
 }
 
 // INTERNAL
 
 function _associate(models) {
-  models.Event.belongsTo(models.Device, {
-    as : 'device'
-  });
 }

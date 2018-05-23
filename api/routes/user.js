@@ -31,7 +31,11 @@ userRouter.get('/:id?', function(req, res) {
       .catch( (err) => {
           // Sinon, on renvoie un erreur systeme
           console.error(err);
-          res.status(500).end();
+          res.status(500).json({
+              success : false,
+              status : 500,
+              message : "500 Internal Server Error"
+          }).end();
       });
 });
 
@@ -49,12 +53,11 @@ userRouter.post('/', function(req, res) {
     /* Récupération des parametres */
     const name = req.body.name;
     const surname = req.body.surname;
-    const login = req.body.login;
     const job = req.body.job || "host";
     const group_id = req.body.group_id || 0;
 
     // Si les parametres obligatoires ne sont pas tous remplis
-    if( name === undefined || surname === undefined || login === undefined ) {
+    if( firstname === undefined || lastname === undefined) {
         // Renvoi d'une erreur
         res.status(400).json({
             success : false,
@@ -64,7 +67,7 @@ userRouter.post('/', function(req, res) {
         return;
     }
     // Sinon, on appelle la methode
-    UserController.add(name, surname, login, job, isManager, group_id)
+    UserController.add(firstname, lastname, login, job, isManager, group_id)
       .then( (user) => {
           // Si la methode ne renvoie pas d'erreur, on renvoie le résultat
           res.status(200).json({
@@ -75,7 +78,11 @@ userRouter.post('/', function(req, res) {
       }).catch( (err) => {
           // Sinon, on renvoie un erreur systeme
           console.error(err);
-          res.status(500).end();
+          res.status(500).json({
+              success : false,
+              status : 500,
+              message : "500 Internal Server Error"
+          }).end();
       });
 });
 
@@ -122,7 +129,11 @@ userRouter.delete('/:id?', function (req, res) {
           }
       }).catch( (err) => {
           console.error(err);
-          res.status(500).end();
+          res.status(500).json({
+              success : false,
+              status : 500,
+              message : "500 Internal Server Error"
+          }).end();
       });
 });
 
@@ -136,9 +147,8 @@ userRouter.delete('/:id?', function (req, res) {
 * @apiUse error400
 */
 userRouter.put('/:id?', function(req, res) {
-  const name = req.body.name;
-  const surname = req.body.surname;
-  const login = req.body.login;
+  const name = req.body.firstname;
+  const surname = req.body.lastname;
   const job = req.body.job || "host";
   const group_id = req.body.group_id || 0;
   const id = parseInt(req.params.id);
@@ -146,7 +156,7 @@ userRouter.put('/:id?', function(req, res) {
   UserController.getAll(id)
     .then( (user) => {
       if (user) {
-          UserController.update(id, name, surname, login, job, group_id)
+          UserController.update(id, firstname, lastname, login, job, group_id)
             .then( (user) => {
                 res.status(200).json({
                     success : true,
@@ -163,7 +173,11 @@ userRouter.put('/:id?', function(req, res) {
       }
     }).catch( (err) => {
         console.error(err);
-        res.status(500).end();
+        res.status(500).json({
+            success : false,
+            status : 500,
+            message : "500 Internal Server Error"
+        }).end();
     });
 });
 

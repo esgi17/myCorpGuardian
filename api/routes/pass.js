@@ -19,11 +19,19 @@ passRouter.get('/', function(req, res) {
     const id = req.body.id;
     PassController.getAll(id)
       .then( (pass) => {
-          res.status(201).json(pass);
+        res.status(201).json({
+            success : true,
+            status : 201,
+            datas : pass
+        });
       })
       .catch( (err) => {
           console.error(err);
-          res.status(500).end();
+          res.status(500).json({
+              success : false,
+              status : 500,
+              message : "500 Internal Server Error"
+          }).end();
       });
 });
 
@@ -39,16 +47,27 @@ passRouter.get('/', function(req, res) {
 passRouter.post('/', function(req, res) {
     const user_id = req.body.user_id;
     if( user_id === undefined ) {
-        res.status(400);
-        return;
+      res.status(400).json({
+          success : false,
+          status : 400,
+          message : "Pass not found"
+      }).end();
     }
     PassController.add(user_id)
       .then( (pass) => {
-          res.status(201).json(pass);
+        res.status(201).json({
+            success : true,
+            status : 201,
+            datas : pass
+        });
       })
       .catch( (err) => {
           console.error(err);
-          res.status(500).end();
+          res.status(500).json({
+              success : false,
+              status : 500,
+              message : "500 Internal Server Error"
+          }).end();
       })
 });
 
@@ -74,14 +93,26 @@ passRouter.delete('/:id', function (req, res) {
     if (pass) {
       PassController.delete(id)
         .then( pass => {
-            res.status(200).json('Pass deleted');
+          res.status(201).json({
+              success : true,
+              status : 201,
+              datas : pass
+          });
         });
     } else {
-      res.status(400).json('Pass not found');
+      res.status(400).json({
+          success : false,
+          status : 400,
+          message : "Pass not found"
+      }).end();
     }
     }).catch( (err) => {
         console.error(err);
-        res.status(500).end();
+        res.status(500).json({
+            success : false,
+            status : 500,
+            message : "500 Internal Server Error"
+        }).end();
     });
 });
 
@@ -102,14 +133,26 @@ passRouter.patch('/:id', function(req, res) {
     if (user) {
       PassController.attribute(id, user_id)
       .then( user => {
-      res.status(200).json('Pass updated');
+        res.status(201).json({
+            success : true,
+            status : 201,
+            datas : pass
+        });
       });
     } else {
-      res.status(400).json('Pass not found');
+      res.status(400).json({
+          success : false,
+          status : 400,
+          message : "Pass not found"
+      }).end();
     }
     }).catch( (err) => {
         console.error(err);
-        res.status(500).end();
+        res.status(500).json({
+            success : false,
+            status : 500,
+            message : "500 Internal Server Error"
+        }).end();
     });
 });
 
