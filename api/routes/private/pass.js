@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const controllers = require('../../controllers');
+const controllers = require('../controllers');
 const PassController = controllers.PassController;
 //const HomeController = controllers.HomeController;
 
@@ -15,15 +15,11 @@ passRouter.use(bodyParser.json());
 * @apiUse error500
 * @apiUse error404
 */
-passRouter.get('/:id', function(req, res) {
-    const id = req.params.id;
+passRouter.get('/', function(req, res) {
+    const id = req.body.id;
     PassController.getAll(id)
       .then( (pass) => {
-          res.status(201).json({
-              success : true,
-              status : 201,
-              datas : pass
-          });
+          res.status(201).json(pass);
       })
       .catch( (err) => {
           console.error(err);
@@ -43,20 +39,12 @@ passRouter.get('/:id', function(req, res) {
 passRouter.post('/', function(req, res) {
     const user_id = req.body.user_id;
     if( user_id === undefined ) {
-        res.status(400).json({
-            success : false,
-            status : 400,
-            message : "Bad Request"
-        });
+        res.status(400);
         return;
     }
     PassController.add(user_id)
       .then( (pass) => {
-          res.status(201).json({
-              success : true,
-              status : 201,
-              datas : pass
-          });
+          res.status(201).json(pass);
       })
       .catch( (err) => {
           console.error(err);
@@ -79,30 +67,18 @@ passRouter.post('/', function(req, res) {
 * @apiUse error404
 * @apiUse error400
 */
-passRouter.delete('/', function (req, res) {
-  var id = parseInt(req.body.id);
-  PassController.getAll(id)
-    .then( (pass) => {
-        if (pass) {
-            PassController.delete(id)
-              .then( pass => {
-                  res.status(200).json({
-                      success : true,
-                      status : 200,
-                      datas : pass
-                  });
-              })
-              .catch( (err) => {
-                  console.error(err);
-                  res.status(500).end();
-              });
-        } else {
-            res.status(400).json({
-                success : false,
-                status : 400,
-                message : "Bad Request"
-            });
-        }
+passRouter.delete('/:id', function (req, res) {
+  var id = parseInt(req.params.id);
+  PassController.find(id)
+  .then( (pass) => {
+    if (pass) {
+      PassController.delete(id)
+        .then( pass => {
+            res.status(200).json('Pass deleted');
+        });
+    } else {
+      res.status(400).json('Pass not found');
+    }
     }).catch( (err) => {
         console.error(err);
         res.status(500).end();
@@ -118,40 +94,23 @@ passRouter.delete('/', function (req, res) {
 * @apiUse error404
 * @apiUse error400
 */
-passRouter.put('/:id', function(req, res) {
-    const user_id = req.body.user_id || 0;
-    const pass_id = req.body.pass_id;
-
-    if( pass_id === undefined ) {
-        res.status(400).json({
-            success : false,
-            status : 400,
-            message : "Bad Request"
-        }).end();
-        return;
-    }
-    UserController.getAll(id)
-      .then( (user) => {
-          if (user) {
-              PassController.affect(id, user_id)
-                  .then( (user) => {
-                      res.status(200).json({
-                          success : true,
-                          status : 200,
-                          datas : user
-                  });
-              });
-          } else {
-              res.status(400).json({
-                  success : false,
-                  status : 400,
-                  datas : "Bad Request"
-              });
-          }
-      }).catch( (err) => {
-          console.error(err);
-          res.status(500).end();
+passRouter.patch('/:id', function(req, res) {
+  const user_id = req.body.user_id || 0;
+  var id = parseInt(req.params.id);
+  PassController.find(id)
+  .then( (user) => {
+    if (user) {
+      PassController.attribute(id, user_id)
+      .then( user => {
+      res.status(200).json('Pass updated');
       });
+    } else {
+      res.status(400).json('Pass not found');
+    }
+    }).catch( (err) => {
+        console.error(err);
+        res.status(500).end();
+    });
 });
 
 

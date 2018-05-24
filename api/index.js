@@ -1,9 +1,14 @@
 const express = require('express');
-const ModelIndex = require('./models');
+const ModelIndex = require('./models/private');
+const GeneralModelIndex = require('./models/general');
 const RouteManager = require('./routes');
 
-ModelIndex
+GeneralModelIndex
   .openDatabase()
+  .then( () => {
+      ModelIndex
+        .openDatabase()
+  })
   .then(_startServer)
   .catch((err) => {
     console.error(err);

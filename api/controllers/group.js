@@ -1,4 +1,4 @@
-const ModelIndex = require('../models');
+const ModelIndex = require('../models/private');
 const Group = ModelIndex.Group;
 const Op = ModelIndex.sequelize.Op;
 
