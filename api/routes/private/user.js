@@ -35,7 +35,6 @@ userRouter.get('/:id?', function(req, res) {
       });
 });
 
-
 /**
 * @api {post} /User ADD User
 * @apiGroup user
@@ -135,13 +134,14 @@ userRouter.delete('/:id?', function (req, res) {
 * @apiUse error404
 * @apiUse error400
 */
-userRouter.put('/:id?', function(req, res) {
+userRouter.put('/', function(req, res) {
+  console.log("yo");
   const name = req.body.name;
   const surname = req.body.surname;
   const login = req.body.login;
   const job = req.body.job || "host";
   const group_id = req.body.group_id || 0;
-  const id = parseInt(req.params.id);
+  const id = parseInt(req.body.id);
 
   UserController.getAll(id)
     .then( (user) => {
@@ -165,6 +165,36 @@ userRouter.put('/:id?', function(req, res) {
         console.error(err);
         res.status(500).end();
     });
+});
+
+userRouter.put('/attribute_group', function(req, res) {
+    const user_id = req.body.user_id;
+    const group_id = req.body.group_id;
+    console.log(user_id);
+    console.log(group_id);
+    UserController.getAll(user_id)
+      .then ( (user) => {
+          if (user) {
+              UserController.affectGroup(group_id, user_id)
+                .then( (user) => {
+                    res.status(200).json({
+                        success : true,
+                        status : 200,
+                        datas : user
+                    });
+              });
+          } else {
+              res.status(400).json({
+                  success: false,
+                  status : 400,
+                  message : "Bad Request"
+              });
+          }
+      })
+      .catch( (err) => {
+          console.error(err);
+          res.status(500).end();
+      });
 });
 
 module.exports = userRouter;

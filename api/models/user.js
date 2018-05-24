@@ -21,10 +21,6 @@ module.exports = function (sequelize, DataTypes) {
         job : {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        isManager : {
-            type: DataTypes.TINYINT,
-            allowNull: false
         }
     },
     {

@@ -12,13 +12,22 @@ groupRouter.use(bodyParser.json());
 * @method : get
 * @route : /group/
 */
-groupRouter.get('/', function(req, res) {
-    const id = req.body.id;
+groupRouter.get('/:id?', function(req, res) {
+    // Récupération des parametres
+    const id = req.params.id;
+
+    // Appel de la methode
     GroupController.getAll( id )
       .then( (group) => {
-          res.status(201).json(group);
+          // Si la methode ne renvoie pas d'erreur, on renvoie un succes avec les donnees
+          res.status(201).json({
+              success : true,
+              status : 201,
+              datas : group
+          });
       })
       .catch( (err) => {
+          // Si la methode renvoie une erreur, on envoie une erreur serveur
           console.error(err);
           res.status(500).end();
       });
@@ -30,14 +39,22 @@ groupRouter.get('/', function(req, res) {
 * @route : /user/
 */
 groupRouter.post('/', function(req, res) {
-    const description = req.body.description;
-    if( description === undefined ) {
-        res.status(400).end();
+    const name = req.body.name;
+    if( name === undefined ) {
+        res.status(400).json({
+            success : false,
+            status : 400,
+            message : "Bad Request"
+        }).end();
         return;
     }
-    GroupController.add(description)
+    GroupController.add(name)
       .then( (group) => {
-          res.status(201).json(group);
+          res.status(201).json({
+              success : true,
+              status : 201,
+              datas : group
+          });
       })
       .catch( (err) => {
           console.error(err);
@@ -52,44 +69,67 @@ groupRouter.post('/', function(req, res) {
 */
 groupRouter.delete('/:id', function (req, res) {
   var id = parseInt(req.params.id);
-  GroupController.find(id)
-  .then( (group) => {
-    if (group) {
-      GroupController.delete(id)
-        .then( group => {
-            res.status(200).json('Group deleted');
-        });
-    } else {
-      res.status(400).json('Group not found');
-    }
-    }).catch( (err) => {
+  GroupController.getAll(id)
+    .then( (group) => {
+        if (group) {
+          GroupController.delete(id)
+            .then( (group) => {
+                res.status(200).json({
+                    success : true,
+                    status : 200,
+                    datas : group
+                });
+            }).catch( (err) => {
+                console.error(err);
+                res.status(500).end();
+            });
+        } else {
+          res.status(400).json({
+              success : false,
+              status : 400,
+              message : "Bad Request"
+          });
+        }
+    })
+    .catch( (err) => {
         console.error(err);
         res.status(500).end();
     });
 });
 
 /*
-* Affectation / Modification d'un badge
-* @method : patch
-* @route : /badge/
+
 */
-groupRouter.patch('/:id', function(req, res) {
-  const user_id = req.body.user_id || 0;
-  var id = parseInt(req.params.id);
-  GroupController.find(id)
-  .then( (user) => {
-    if (user) {
-      GroupController.attribute(id, user_id)
-      .then( user => {
-      res.status(200).json('Group updated');
+groupRouter.put('/', function(req, res) {
+    const name = req.body.name
+    const group_id = parseInt(req.body.group_id);
+    GroupController.getAll(group_id)
+      .then( (group) => {
+          if (group) {
+              GroupController.update(group_id, name)
+                .then( (group) => {
+                    res.status(200).json({
+                        success : true,
+                        status : 200,
+                        datas : group
+                    })
+                })
+                .catch( (err) => {
+                    console.error(err);
+                    res.status(500).end();
+                });
+          } else {
+              res.status(400).json({
+                  success : false,
+                  status : 400,
+                  message : "Bad Request"
+              });
+          }
+      })
+      .catch( (err) => {
+          console.error(err);
+          res.status(500).end();
       });
-    } else {
-      res.status(400).json('Group not found');
-    }
-    }).catch( (err) => {
-        console.error(err);
-        res.status(500).end();
-    });
 });
 
 

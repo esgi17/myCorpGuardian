@@ -44,7 +44,7 @@ PassController.add = function(user_id) {
 /**
 *  Attribution d'un badge
 **/
-PassController.attribute = function (passId, userId) {
+PassController.affect = function (passId, userId) {
   const options = {
     user_id : userId
   };
