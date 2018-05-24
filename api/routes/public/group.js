@@ -1,8 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const controllers = require('../controllers');
-const GroupController = controllers.GroupController;
-//const HomeController = controllers.HomeController;
+const publicConfig = require('./config');
+const GroupController = require(publicConfig.controllers.group_path);
 
 const groupRouter = express.Router();
 groupRouter.use(bodyParser.json());

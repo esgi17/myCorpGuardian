@@ -1,5 +1,7 @@
 const express = require('express');
-const ModelIndex = require('./models/private');
+const jwt = require('jsonwebtoken');
+const config = require('./config');
+const ModelIndex = require('./models/public');
 const GeneralModelIndex = require('./models/general');
 const RouteManager = require('./routes');
 
@@ -18,11 +20,11 @@ GeneralModelIndex
 
 function _startServer() {
 
-  const app = express();
+    const app = express();
+    app.set('secret', config.secret);
+    RouteManager.attach(app);
 
-  RouteManager.attach(app);
-
-  app.listen(3000, function() {
-    console.log('Server started on 3000...');
+    app.listen(3000, function() {
+      console.log('Server started on 3000...');
   });
 }

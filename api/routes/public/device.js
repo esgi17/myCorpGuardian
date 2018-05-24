@@ -1,8 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const controllers = require('../controllers');
-const DeviceController = controllers.DeviceController;
-//const HomeController = controllers.HomeController;
+const publicConfig = require('./config');
+const DeviceController = require(publicConfig.controllers.device_path);
 
 const deviceRouter = express.Router();
 deviceRouter.use(bodyParser.json());

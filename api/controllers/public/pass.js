@@ -1,4 +1,5 @@
-const ModelIndex = require('../models/private');
+const publicConfig = require('./config');
+const ModelIndex = require(publicConfig.models_path);
 const Pass = ModelIndex.Pass;
 const Op = ModelIndex.sequelize.Op;
 
@@ -10,8 +11,8 @@ const PassController = function() { };
 PassController.getAll = function( id ) {
     const options = {
       include: [{
-          model: ModelIndex.Pass,
-          as : 'pass'
+          model: ModelIndex.User,
+          as : 'user'
       }]
     };
     const where = {};

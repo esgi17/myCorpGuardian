@@ -21,4 +21,7 @@ function _associate(models) {
     models.Pass.belongsTo(models.User, {
         as : 'user'
     });
+    models.Pass.belongsTo(models.Device, {
+      as : 'device'
+    });
 }

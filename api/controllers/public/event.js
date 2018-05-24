@@ -1,5 +1,7 @@
-const ModelIndex = require('../models');
+const publicConfig = require('./config');
+const ModelIndex = require(publicConfig.models_path);
 const Event = ModelIndex.Event;
+
 const Op = ModelIndex.sequelize.Op;
 
 const EventController = function() { };

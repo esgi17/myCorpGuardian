@@ -1,28 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const controllers = require('../controllers');
-const DeviceTypeController = controllers.DeviceTypeController;
-//const HomeController = controllers.HomeController;
+const publicConfig = require('./config');
+const DoorController = require(publicConfig.controllers.door_path);
 
-const deviceTypeRouter = express.Router();
-deviceTypeRouter.use(bodyParser.json());
+const doorRouter = express.Router();
+doorRouter.use(bodyParser.json());
 
 /**
-* @api {get} /DeviceType GET DeviceType
-* @apiGroup deviceType
+* @api {get} /Door GET Door
+* @apiGroup door
 * @apiUse searchById
-* @apiUse deviceTypeCreated
+* @apiUse doorCreated
 * @apiUse error500
 */
-deviceTypeRouter.get('/', function(req, res) {
+doorRouter.get('/', function(req, res) {
     const id = req.body.id;
-    DeviceTypeController.getAll(id)
-      .then( (deviceType) => {
+    DoorController.getAll(id)
+      .then( (door) => {
         // Si la methode ne renvoie pas d'erreur, on renvoie le résultat
         res.status(201).json({
             success : true,
             status : 201,
-            datas : deviceType
+            datas : door
         });
       })
       .catch( (err) => {
@@ -36,18 +35,19 @@ deviceTypeRouter.get('/', function(req, res) {
 });
 
 /**
-* @api {post} /DeviceType ADD DeviceType
-* @apiGroup deviceType
-* @apiUse deviceTypeExample
-* @apiUse deviceTypeCreated
+* @api {post} /Door ADD Door
+* @apiGroup door
+* @apiUse doorExample
+* @apiUse doorCreated
 * @apiUse error500
 * @apiUse error404
 * @apiUse error400
 */
-deviceTypeRouter.post('/', function(req, res) {
+doorRouter.post('/', function(req, res) {
     const name = req.body.name;
+    const ref = req.body.ref;
 
-    if( name === undefined ) {
+    if( ip === undefined || type === undefined ) {
       // Renvoi d'une erreur
       res.status(400).json({
           success : false,
@@ -55,13 +55,13 @@ deviceTypeRouter.post('/', function(req, res) {
           message : "Bad Request"
       }).end();
     }
-    DeviceTypeController.add( name )
-      .then( (deviceType) => {
+    DoorController.add( ip, name, ref )
+      .then( (door) => {
         // Si la methode ne renvoie pas d'erreur, on renvoie le résultat
         res.status(201).json({
             success : true,
             status : 201,
-            datas : deviceType
+            datas : door
         });
     }).catch( (err) => {
         // Sinon, on renvoie un erreur systeme
@@ -75,38 +75,38 @@ deviceTypeRouter.post('/', function(req, res) {
 });
 
 /**
-* @api {delete} /deviceType DELETE DeviceType
-* @apiGroup deviceType
+* @api {delete} /door DELETE Door
+* @apiGroup door
 * @apiUse searchById
 * @apiSuccessExample
-*    HTTP/1.1 200 DeviceType deleted
+*    HTTP/1.1 200 Door deleted
 *     {
 *       "success" : true
 *       "status": 200
-*       "message": "DeviceType deleted"
+*       "message": "Door deleted"
 *     }
 * @apiUse error500
 * @apiUse error404
 * @apiUse error400
 */
-deviceTypeRouter.delete('/:id', function (req, res) {
+doorRouter.delete('/:id', function (req, res) {
   var id = parseInt(req.params.id);
-  DeviceTypeController.find(id)
-  .then( (deviceType) => {
-    if (deviceType) {
-      DeviceTypeController.delete(id)
-        .then( deviceType => {
+  DoorController.find(id)
+  .then( (door) => {
+    if (door) {
+      DoorController.delete(id)
+        .then( door => {
           res.status(201).json({
               success : true,
               status : 201,
-              message : "DeviceType deleted"
+              message : "Door deleted"
           });
         });
     } else {
       res.status(400).json({
           success : false,
           status : 400,
-          message : "DeviceType not found"
+          message : "Door not found"
       }).end();
     }
     }).catch( (err) => {
@@ -120,27 +120,28 @@ deviceTypeRouter.delete('/:id', function (req, res) {
 });
 
 /**
-* @api {put} /DeviceType UPDATE DeviceType
-* @apiGroup deviceType
-* @apiUse deviceTypeExample
-* @apiUse deviceTypeCreated
+* @api {put} /Door UPDATE Door
+* @apiGroup door
+* @apiUse doorExample
+* @apiUse doorCreated
 * @apiUse error500
 * @apiUse error404
 * @apiUse error400
 */
-deviceTypeRouter.put('/:id?', function(req, res) {
+doorRouter.put('/:id?', function(req, res) {
   const name = req.body.name;
+  const ref = req.body.ref;
   const id = parseInt(req.params.id);
 
-  DeviceTypeController.getAll(id)
-    .then( (deviceType) => {
-      if (deviceType) {
-          DeviceTypeController.update(id, name )
-            .then( (deviceType) => {
+  DoorController.getAll(id)
+    .then( (door) => {
+      if (door) {
+          DoorController.update( id, name, ref )
+            .then( (door) => {
                 res.status(200).json({
                     success : true,
                     status : 200,
-                    datas : deviceType
+                    datas : door
                 });
             });
       } else {
@@ -160,4 +161,4 @@ deviceTypeRouter.put('/:id?', function(req, res) {
     });
 });
 
-module.exports = deviceTypeRouter;
+module.exports = doorRouter;

@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const controllers = require('../controllers');
-const privateRoute = require('./private');
+const controllers = require('../../controllers');
+const publicRoute = require('../public');
 const ControlsController = controllers.ControlsController;
 //const HomeController = controllers.HomeController;
 
@@ -9,19 +9,14 @@ const controlsRouter = express.Router();
 controlsRouter.use(bodyParser.json());
 
 
-controlsRouter.use(function(req, res, next) {
-    // Authentification
-        // Vérificatoin du token
-        // SI ok =>
-    next();
-},
-function ( req, res, next ){
+controlsRouter.use(function ( req, res, next ){
+    console.log("Insert event");
     // Inserer un event
         // Si ok =>
     next();
 },
 function(req,res, next) {
-    privateRoute.attach(controlsRouter);
+    publicRoute.attach(controlsRouter);
     next();
 });
 

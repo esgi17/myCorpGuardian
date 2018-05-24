@@ -1,4 +1,5 @@
-const ModelIndex = require('../models');
+const publicConfig = require('./config');
+const ModelIndex = require(publicConfig.models_path);
 const Schedule = ModelIndex.Schedule;
 const Op = ModelIndex.sequelize.Op;
 

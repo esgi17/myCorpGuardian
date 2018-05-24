@@ -1,9 +1,15 @@
 const RouteManager = function() { };
-const privateRouteManager = require('./private');
+const publicRouteManager = require('./public');
+const generalRouteManger = require('./general');
+const controlsRouteManger = require('./controls');
 
 RouteManager.attach = function(app) {
-    app.use('/control', require('./controls'));
-    privateRouteManager.attach(app);
+    //app.use('/',)
+    app.use(require('./authenticate'));
+    controlsRouteManger.attach(app);
+    publicRouteManager.attach(app);
+    generalRouteManger.attach(app);
+
 }
 
 module.exports = RouteManager;

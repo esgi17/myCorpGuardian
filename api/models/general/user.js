@@ -27,5 +27,5 @@ module.exports = function (sequelize, DataTypes) {
 // INTERNAL
 
 function _associate(models) {
-    
+
 }

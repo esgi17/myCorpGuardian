@@ -1,8 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const controllers = require('../controllers');
-const EventController = controllers.EventController;
-//const HomeController = controllers.HomeController;
+const publicConfig = require('./config');
+const EventController = require(publicConfig.controllers.event_path);
 
 const eventRouter = express.Router();
 eventRouter.use(bodyParser.json());

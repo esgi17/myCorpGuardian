@@ -1,5 +1,7 @@
-const ModelIndex = require('../models/private');
+const publicConfig = require('./config');
+const ModelIndex = require(publicConfig.models_path);
 const User = ModelIndex.User;
+
 const Op = ModelIndex.sequelize.Op;
 
 const UserController = function() { };

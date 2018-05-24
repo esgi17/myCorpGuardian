@@ -1,28 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const controllers = require('../controllers');
-const ScheduleController = controllers.ScheduleController;
-//const HomeController = controllers.HomeController;
+const publicConfig = require('./config');
+const CaptorController = require(publicConfig.controllers.captor_path);
 
-const scheduleRouter = express.Router();
-scheduleRouter.use(bodyParser.json());
+const captorRouter = express.Router();
+captorRouter.use(bodyParser.json());
 
 /**
-* @api {get} /Schedule GET Schedule
-* @apiGroup schedule
+* @api {get} /Captor GET Captor
+* @apiGroup captor
 * @apiUse searchById
-* @apiUse scheduleCreated
+* @apiUse captorCreated
 * @apiUse error500
 */
-scheduleRouter.get('/', function(req, res) {
+captorRouter.get('/', function(req, res) {
     const id = req.body.id;
-    ScheduleController.getAll(id)
-      .then( (schedule) => {
+    CaptorController.getAll(id)
+      .then( (captor) => {
         // Si la methode ne renvoie pas d'erreur, on renvoie le résultat
         res.status(201).json({
             success : true,
             status : 201,
-            datas : schedule
+            datas : captor
         });
       })
       .catch( (err) => {
@@ -36,20 +35,18 @@ scheduleRouter.get('/', function(req, res) {
 });
 
 /**
-* @api {post} /Schedule ADD Schedule
-* @apiGroup schedule
-* @apiUse scheduleExample
-* @apiUse scheduleCreated
+* @api {post} /Captor ADD Captor
+* @apiGroup captor
+* @apiUse captorExample
+* @apiUse captorCreated
 * @apiUse error500
 * @apiUse error404
 * @apiUse error400
 */
-scheduleRouter.post('/', function(req, res) {
-  const h_start = req.body.h_start;
-  const h_stop = req.body.h_stop;
-  const day = req.body.day;
-  const door_id = req.body.door_id;
-  const group_id = req.body.group_id;
+captorRouter.post('/', function(req, res) {
+    const ip = req.body.ip;
+    const type = req.body.type;
+    const description = req.body.description;
 
     if( ip === undefined || type === undefined ) {
       // Renvoi d'une erreur
@@ -59,13 +56,13 @@ scheduleRouter.post('/', function(req, res) {
           message : "Bad Request"
       }).end();
     }
-    ScheduleController.add( h_start, h_stop, day, door_id, group_id )
-      .then( (schedule) => {
+    CaptorController.add( ip, type, description )
+      .then( (captor) => {
         // Si la methode ne renvoie pas d'erreur, on renvoie le résultat
         res.status(201).json({
             success : true,
             status : 201,
-            datas : schedule
+            datas : captor
         });
     }).catch( (err) => {
         // Sinon, on renvoie un erreur systeme
@@ -79,38 +76,38 @@ scheduleRouter.post('/', function(req, res) {
 });
 
 /**
-* @api {delete} /schedule DELETE Schedule
-* @apiGroup schedule
+* @api {delete} /captor DELETE Captor
+* @apiGroup captor
 * @apiUse searchById
 * @apiSuccessExample
-*    HTTP/1.1 200 Schedule deleted
+*    HTTP/1.1 200 Captor deleted
 *     {
 *       "success" : true
 *       "status": 200
-*       "message": "Schedule deleted"
+*       "message": "Captor deleted"
 *     }
 * @apiUse error500
 * @apiUse error404
 * @apiUse error400
 */
-scheduleRouter.delete('/:id', function (req, res) {
+captorRouter.delete('/:id', function (req, res) {
   var id = parseInt(req.params.id);
-  ScheduleController.find(id)
-  .then( (schedule) => {
-    if (schedule) {
-      ScheduleController.delete(id)
-        .then( schedule => {
+  CaptorController.find(id)
+  .then( (captor) => {
+    if (captor) {
+      CaptorController.delete(id)
+        .then( captor => {
           res.status(201).json({
               success : true,
               status : 201,
-              message : "Schedule deleted"
+              message : "Captor deleted"
           });
         });
     } else {
       res.status(400).json({
           success : false,
           status : 400,
-          message : "Schedule not found"
+          message : "Captor not found"
       }).end();
     }
     }).catch( (err) => {
@@ -124,31 +121,29 @@ scheduleRouter.delete('/:id', function (req, res) {
 });
 
 /**
-* @api {put} /Schedule UPDATE Schedule
-* @apiGroup schedule
-* @apiUse scheduleExample
-* @apiUse scheduleCreated
+* @api {put} /Captor UPDATE Captor
+* @apiGroup captor
+* @apiUse captorExample
+* @apiUse captorCreated
 * @apiUse error500
 * @apiUse error404
 * @apiUse error400
 */
-scheduleRouter.put('/:id?', function(req, res) {
-  const h_start = req.body.h_start;
-  const h_stop = req.body.h_stop;
-  const day = req.body.day;
-  const door_id = req.body.door_id;
-  const group_id = req.body.group_id;
+captorRouter.put('/:id?', function(req, res) {
+  const ip = req.body.ip;
+  const type = req.body.type;
+  const description = req.body.description;
   const id = parseInt(req.params.id);
 
-  ScheduleController.getAll(id)
-    .then( (schedule) => {
-      if (schedule) {
-          ScheduleController.update( id, h_start, h_stop, day, door_id, group_id )
-            .then( (schedule) => {
+  CaptorController.getAll(id)
+    .then( (captor) => {
+      if (captor) {
+          CaptorController.update(id, ip, type, description )
+            .then( (captor) => {
                 res.status(200).json({
                     success : true,
                     status : 200,
-                    datas : schedule
+                    datas : captor
                 });
             });
       } else {
@@ -168,4 +163,4 @@ scheduleRouter.put('/:id?', function(req, res) {
     });
 });
 
-module.exports = scheduleRouter;
+module.exports = captorRouter;

@@ -21,13 +21,4 @@ function _associate(models) {
   models.Device.belongsTo(models.DeviceType, {
     as : 'deviceType'
   });
-  models.Device.hasOne(models.Pass, {
-    as : 'pDevice'
-  });
-  models.Device.hasOne(models.Door, {
-    as : 'dDevice'
-  });
-  models.Device.hasOne(models.Captor, {
-    as : 'cDevice'
-  });
 }

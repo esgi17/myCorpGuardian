@@ -1,5 +1,7 @@
-const ModelIndex = require('../models');
+const publicConfig = require('./config');
+const ModelIndex = require(publicConfig.models_path);
 const Captor = ModelIndex.Captor;
+
 const Op = ModelIndex.sequelize.Op;
 
 const CaptorController = function() { };

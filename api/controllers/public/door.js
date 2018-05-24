@@ -1,5 +1,7 @@
-const ModelIndex = require('../models');
+const publicConfig = require('./config');
+const ModelIndex = require(publicConfig.models_path);
 const Door = ModelIndex.Door;
+
 const Op = ModelIndex.sequelize.Op;
 
 const DoorController = function() { };
@@ -38,7 +40,7 @@ DoorController.delete = function ( id ) {
 /**
 *  Modification d'une porte en base
 **/
-UserController.update = function( id, name, ref ) {
+DoorController.update = function( id, name, ref ) {
     return User.update({
         name: name,
         ref: ref
