@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-const config = require('../config');
+const config = require('../../config');
 const Op = Sequelize.Op;
 const basename = path.basename(module.filename);
 
@@ -13,10 +13,10 @@ ModelIndex.getModel = function (modelName) {
     return this[modelName];
 };
 
-const sequelize = new Sequelize(config.bdd.dbname, config.bdd.user, config.bdd.password, {
-  host: config.bdd.host,
-  dialect: config.bdd.dialect,
-  port: config.bdd.port,
+const sequelize = new Sequelize(config.private_bdd.dbname, config.private_bdd.user, config.private_bdd.password, {
+  host: config.private_bdd.host,
+  dialect: config.private_bdd.dialect,
+  port: config.private_bdd.port,
   operatorsAliases: Op
 });
 

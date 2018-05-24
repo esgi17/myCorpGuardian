@@ -1,8 +1,7 @@
 const RouteManager = function() { };
 
 RouteManager.attach = function(app) {
-    app.use('/private', require('./private'));
-    app.use('/general', require('./general'));
+    app.use('/user', require('./user'))
 }
 
 module.exports = RouteManager;
