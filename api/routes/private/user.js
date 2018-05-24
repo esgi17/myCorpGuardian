@@ -100,9 +100,9 @@ userRouter.post('/', function(req, res) {
 * @apiUse error404
 * @apiUse error400
 */
-userRouter.delete('/:id?', function (req, res) {
+userRouter.delete('/', function (req, res) {
     // Récupération des parametres
-    var id = parseInt(req.params.id);
+    var id = parseInt(req.body.id);
     // Appel de la methode
     UserController.getAll(id)
       .then( (user) => {

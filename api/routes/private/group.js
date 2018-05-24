@@ -7,17 +7,19 @@ const GroupController = controllers.GroupController;
 const groupRouter = express.Router();
 groupRouter.use(bodyParser.json());
 
-/*
-* Récupération des groupes
-* @method : get
-* @route : /group/
+/**
+* @api {get} /Group GET Group
+* @apiGroup group
+* @apiUse searchById
+* @apiUse groupCreated
+* @apiUse error500
 */
-groupRouter.get('/:id?', function(req, res) {
+groupRouter.get('/:group_id?', function(req, res) {
     // Récupération des parametres
-    const id = req.params.id;
+    const group_id = req.params.group_id;
 
     // Appel de la methode
-    GroupController.getAll( id )
+    GroupController.getAll( group_id )
       .then( (group) => {
           // Si la methode ne renvoie pas d'erreur, on renvoie un succes avec les donnees
           res.status(201).json({
@@ -33,10 +35,13 @@ groupRouter.get('/:id?', function(req, res) {
       });
 });
 
-/*
-* Ajout d'un groupe
-* @method : post
-* @route : /user/
+/**
+* @api {post} /Group ADD Group
+* @apiGroup group
+* @apiUse groupParams
+* @apiUse groupCreated
+* @apiUse error500
+* @apiUse error400
 */
 groupRouter.post('/', function(req, res) {
     const name = req.body.name;
@@ -62,14 +67,24 @@ groupRouter.post('/', function(req, res) {
       })
 });
 
-/*
-* Suppression d'un groupe
-* @method : delete
-* @route : /group/
+/**
+* @api {delete} /group DELETE Group
+* @apiGroup group
+* @apiUse searchById
+* @apiSuccessExample
+*    HTTP/1.1 200 Group deleted
+*     {
+*       "success" : true
+*       "status": 200
+*       "message": "Group deleted"
+*     }
+* @apiUse error500
+* @apiUse error404
+* @apiUse error400
 */
-groupRouter.delete('/:id', function (req, res) {
-  var id = parseInt(req.params.id);
-  GroupController.getAll(id)
+groupRouter.delete('/', function (req, res) {
+  var group_id = parseInt(req.body.group_id);
+  GroupController.getAll(group_id)
     .then( (group) => {
         if (group) {
           GroupController.delete(id)
@@ -81,7 +96,7 @@ groupRouter.delete('/:id', function (req, res) {
                 });
             }).catch( (err) => {
                 console.error(err);
-                res.status(500).end();
+                res.status(404).end();
             });
         } else {
           res.status(400).json({
@@ -97,8 +112,14 @@ groupRouter.delete('/:id', function (req, res) {
     });
 });
 
-/*
-
+/**
+* @api {put} /Group UPDATE Group
+* @apiGroup group
+* @apiUse groupExample
+* @apiUse groupCreated
+* @apiUse error500
+* @apiUse error404
+* @apiUse error400
 */
 groupRouter.put('/', function(req, res) {
     const name = req.body.name

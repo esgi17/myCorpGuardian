@@ -154,11 +154,20 @@
        */
 
        /**
+       *  @apiDefine groupParams
+       *  @apiParam {String} name Group name
+       *  @apiParamExample {json} Input
+       *      {
+       *        "name" : "Employee"
+       *      }
+       */
+
+       /**
        * @apiDefine groupExample
-       * @apiParam {Integer} description Group description
+       * @apiParam {Integer} group_id Group id
        * @apiParamExample {json} Input
        *    {
-       *      "description": "Host"
+       *      "group_id": "1"
        *    }
        */
 
