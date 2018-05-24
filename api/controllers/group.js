@@ -28,7 +28,9 @@ GroupController.getAll = function( id ) {
 *  Retrouver un groupe en base
 **/
 GroupController.find = function( id ) {
+  if ( id != undefined ){
     return Group.findById( id );
+  }
 }
 
 /**
@@ -63,5 +65,7 @@ GroupController.delete = function ( id ) {
     }
   });
 }
+
+
 // Export du controller
 module.exports = GroupController;

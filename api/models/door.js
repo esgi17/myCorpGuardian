@@ -1,15 +1,15 @@
 module.exports = function (sequelize, DataTypes) {
-    const Event = sequelize.define('Event', {
+    const Door = sequelize.define('Door', {
         id : {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
         },
-        date: {
-            type: DataTypes.DATE,
+        name: {
+            type: DataTypes.STRING,
             allowNull: false
         },
-        data: {
+        ref: {
             type: DataTypes.STRING,
             allowNull: false
         }
@@ -19,14 +19,14 @@ module.exports = function (sequelize, DataTypes) {
         underscored: true,
         freezeTableName: true
     });
-    Event.associate = _associate;
-    return Event;
+    Door.associate = _associate;
+    return Door;
 }
 
 // INTERNAL
 
 function _associate(models) {
-  models.Event.belongsTo(models.Device, {
-    as : 'device'
+  models.Door.hasMany(models.Schedule, {
+    as : 'schedule'
   });
 }

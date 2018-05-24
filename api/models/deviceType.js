@@ -1,15 +1,11 @@
 module.exports = function (sequelize, DataTypes) {
-    const Event = sequelize.define('Event', {
+    const DeviceType = sequelize.define('DeviceType', {
         id : {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
         },
-        date: {
-            type: DataTypes.DATE,
-            allowNull: false
-        },
-        data: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false
         }
@@ -19,14 +15,12 @@ module.exports = function (sequelize, DataTypes) {
         underscored: true,
         freezeTableName: true
     });
-    Event.associate = _associate;
-    return Event;
+    // User.associate = _associate;
+    return DeviceType;
 }
 
 // INTERNAL
 
 function _associate(models) {
-  models.Event.belongsTo(models.Device, {
-    as : 'device'
-  });
+
 }

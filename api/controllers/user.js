@@ -7,13 +7,11 @@ const UserController = function() { };
 /**
 *  Creation d'un User en base
 **/
-UserController.add = function(name, surname, login, job, isManager, group_id) {
+UserController.add = function(firstname, lastname, job, group_id) {
     return User.create({
-        name: name,
-        surname: surname,
-        login: login,
+        firstname: firstname,
+        lastname: lastname,
         job: job,
-        isManager: isManager,
         group_id: group_id
     });
 };
@@ -32,11 +30,10 @@ UserController.delete = function(id) {
 /**
 *  Modification d'un User en base
 **/
-UserController.update = function(id, name, surname, login, job, group_id) {
+UserController.update = function(id, firstname, lastname, group_id) {
     return User.update({
-        name: name,
-        surname: surname,
-        login: login,
+        firstname: firstname,
+        lastname: lastname,
         job: job,
         group_id: group_id
     },{
