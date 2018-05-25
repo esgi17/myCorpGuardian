@@ -4,7 +4,6 @@ const generalRouteManger = require('./general');
 const controlsRouteManger = require('./controls');
 
 RouteManager.attach = function(app) {
-    //app.use('/',)
     app.use(require('./authenticate'));
     controlsRouteManger.attach(app);
     publicRouteManager.attach(app);

@@ -6,7 +6,6 @@ const controllers = require('../controllers/general');
 const controlsRoute = require('./controls');
 const publicRoute = require('./public');
 const AdminController = controllers.AdminController;
-//const HomeController = controllers.HomeController;
 
 const loginRouter = express.Router();
 loginRouter.use(bodyParser.json());
@@ -39,7 +38,6 @@ loginRouter.post('/', function(req,res) {
                 const payload = {
                     admin : user.admin
                 };
-                console.log(config);
                 var token = jwt.sign(payload, config.secret);
                 res.status(200).json({
                     success: true,
