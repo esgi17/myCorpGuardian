@@ -1,4 +1,4 @@
-package pa.Model;
+package pa.Models;
 
 /**
  * SecuritySystem est une classe abstraite qui sera mère des modeles de tous les equipements de sécurité

@@ -1,9 +1,9 @@
-package pa.Model;
+package pa.Models;
 
 /**
- * Classe Door representant une porte pouvant être ajoutée au systeme
+ * Classe Alarm representant une alarme pouvant être ajoutée au systeme
  *
- * Une porte est définie par les caractéristiques suivantes :
+ * Une alarme est définie par les caractéristiques suivantes :
  * <ul>
  *     <li>serialNumber [String] : Le numéro de série de l'appareil</li>
  *     <li>brand [String] : La marque de l'appareil </li>
@@ -13,10 +13,10 @@ package pa.Model;
  * @author Robin Tersou
  * @since 1.0
  */
-public class Door extends SecuritySystem {
+public class Alarm extends SecuritySystem {
 
     /**
-     * Constructeur de l'objet Door
+     * Constructeur de l'objet Alarm
      *
      * @param serialNumber
      *                      Numéro de série de l'appareil
@@ -25,7 +25,7 @@ public class Door extends SecuritySystem {
      * @param schedule
      *                      Planning attribué
      */
-    public void Door( String serialNumber, String brand, Schedule schedule ) {
+    public void Alarm( String serialNumber, String brand, Schedule schedule ) {
         this.serialNumber = serialNumber;
         this.brand = brand;
         this.schedule = schedule;

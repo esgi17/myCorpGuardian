@@ -1,9 +1,9 @@
-package pa.Model;
+package pa.Models;
 
 /**
- * Classe Alarm representant une alarme pouvant être ajoutée au systeme
+ * Classe Sensor representant un capteur pouvant être ajoutée au systeme
  *
- * Une alarme est définie par les caractéristiques suivantes :
+ * Un capteur est défini par les caractéristiques suivantes :
  * <ul>
  *     <li>serialNumber [String] : Le numéro de série de l'appareil</li>
  *     <li>brand [String] : La marque de l'appareil </li>
@@ -13,10 +13,10 @@ package pa.Model;
  * @author Robin Tersou
  * @since 1.0
  */
-public class Alarm extends SecuritySystem {
+public class Sensor extends SecuritySystem {
 
     /**
-     * Constructeur de l'objet Alarm
+     * Constructeur de l'objet Sensor
      *
      * @param serialNumber
      *                      Numéro de série de l'appareil
@@ -25,7 +25,7 @@ public class Alarm extends SecuritySystem {
      * @param schedule
      *                      Planning attribué
      */
-    public void Alarm( String serialNumber, String brand, Schedule schedule ) {
+    public void Sensor( String serialNumber, String brand, Schedule schedule ) {
         this.serialNumber = serialNumber;
         this.brand = brand;
         this.schedule = schedule;

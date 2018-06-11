@@ -1,4 +1,4 @@
-package pa.Model;
+package pa.Models;
 
 /**
  * Enumeration des valeurs par défaut des plannings

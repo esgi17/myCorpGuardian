@@ -1,4 +1,4 @@
-package pa.Model;
+package pa.Models;
 
 /**
  * <b>User est la classe représentant un utilisateur.</b>
