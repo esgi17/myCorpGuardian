@@ -56,6 +56,7 @@ public class Main extends Application {
                 return false;
             }
         }
+        System.out.println("Token ok! ");
         return true;
 
     }

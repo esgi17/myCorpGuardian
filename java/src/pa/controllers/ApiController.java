@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class ApiController {
 
-    private static String api_url = "http://127.0.0.1:3000/";
+    private static String api_url = "http://127.0.0.1:3000";
 
     private static String charset = "UTF-8";
 
@@ -19,7 +19,7 @@ public class ApiController {
 
     }
 
-    public Boolean callAPI(String method, String route, String[] datas) throws UnsupportedEncodingException {
+    public static String callAPI(String method, String route) throws UnsupportedEncodingException {
         URLConnection connection = null;
         String query = String.format("param1=%s", URLEncoder.encode(token, charset));
 
@@ -31,37 +31,28 @@ public class ApiController {
             try (Scanner scanner = new Scanner(response)) {
                 String responseBody = scanner.useDelimiter("\\A").next();
                 System.out.println(responseBody);
+                return responseBody;
             }catch (Exception e) {
-
+                System.out.println("ERREUR SCANNER");
+                return null;
             }
         } catch (Exception e) {
-
+            System.out.println(e);
+            return null;
         }
-        //Integer i;
 
-        /*for( String data : datas ) {
-            query += "param"
-        }*/
-
-        try {
-            URL url = new URL(api_url);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod(method);
-            connection.setRequestProperty("Content-Type", "applicatoin/x-www-form-urlencoded");
-        }catch( Exception e) {
-
-        }
-        // APPEL API
-
-
-        return true;
     }
 
 
     public static Boolean checkToken() {
         // Verification Token API
 
-        return false;
+        try{
+            callAPI("GET", "/");
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
     }
 
     public static String getApi_url() {
