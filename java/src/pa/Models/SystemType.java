@@ -1,4 +1,4 @@
-package pa.Model;
+package pa.Models;
 
 /**
  * SystemType est une énumération.

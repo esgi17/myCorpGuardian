@@ -1,4 +1,4 @@
-package pa.Model;
+package pa.Models;
 
 /**
  * Classe Pass représentant un badge associé à un utilisateur

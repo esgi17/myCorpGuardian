@@ -1,4 +1,4 @@
-package pa.Model;
+package pa.Models;
 
 /**
  * <b> Classe Schedule contenant la configuration du planning </b>
