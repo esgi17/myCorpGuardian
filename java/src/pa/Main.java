@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static pa.controllers.ApiController.checkToken;
+import static pa.controllers.ApiController.getToken;
+
 public class Main extends Application {
     private Stage primaryStage;
 
@@ -45,7 +48,13 @@ public class Main extends Application {
 
     private boolean checkLogin() {
         if( getToken() == null || getToken().isEmpty() ) {
+            System.out.println("No token provided...");
             return false;
+        } else {
+            if( !checkToken() ) {
+                System.out.println("Bad token provided...");
+                return false;
+            }
         }
         return true;
 
