@@ -50,8 +50,8 @@ userRouter.get('/:id?', function(req, res) {
 */
 userRouter.post('/', function(req, res) {
     /* Récupération des parametres */
-    const name = req.body.name;
-    const surname = req.body.surname;
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
     const job = req.body.job || "host";
     const group_id = req.body.group_id || 0;
 
@@ -66,7 +66,7 @@ userRouter.post('/', function(req, res) {
         return;
     }
     // Sinon, on appelle la methode
-    UserController.add(firstname, lastname, login, job, isManager, group_id)
+    UserController.add(firstname, lastname, job, group_id)
       .then( (user) => {
           // Si la methode ne renvoie pas d'erreur, on renvoie le résultat
           res.status(200).json({
@@ -147,9 +147,8 @@ userRouter.delete('/', function (req, res) {
 */
 userRouter.put('/', function(req, res) {
   console.log("yo");
-  const name = req.body.firstname;
-  const surname = req.body.lastname;
-  const login = req.body.login;
+  const firstname = req.body.firstname;
+  const lastame = req.body.lastname;
   const job = req.body.job || "host";
   const group_id = req.body.group_id || 0;
   const id = parseInt(req.body.id);
@@ -157,7 +156,7 @@ userRouter.put('/', function(req, res) {
   UserController.getAll(id)
     .then( (user) => {
       if (user) {
-          UserController.update(id, firstname, lastname, login, job, group_id)
+          UserController.update(id, firstname, lastname, job, group_id)
             .then( (user) => {
                 res.status(200).json({
                     success : true,

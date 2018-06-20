@@ -8,8 +8,10 @@ const publicRoute = require('./public');
 const AdminController = controllers.AdminController;
 
 const loginRouter = express.Router();
+loginRouter.use(bodyParser.urlencoded({
+    extended: true
+}));
 loginRouter.use(bodyParser.json());
-
 
 
 loginRouter.post('/', function(req,res) {

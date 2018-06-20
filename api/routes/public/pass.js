@@ -17,7 +17,7 @@ passRouter.use(bodyParser.json());
 * @apiUse error404
 */
 passRouter.get('/', function(req, res) {
-    const id = req.body.id;
+    const id = req.query.id;
     PassController.getAll(id)
       .then( (pass) => {
           res.status(201).json(pass);
