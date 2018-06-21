@@ -4,26 +4,43 @@ app.main = {
 
     appName : 'My Corp Guardian',
 
-    api : 'http://127.0.0.1:9090/',
+    api : 'http://127.0.0.1:3000/',
 
     version : '1.0',
 
     init : () => {
+        console.log("init app");
+        app.main.checkLogin();
+        // app.main.initSession();
+        // app.main.initNavbar();
+        //
 
-        app.main.initSession();
-        app.main.initNavbar();
+        // app.main.navigate('home');
+    },
 
-        $(document).ready(function() {
-            $('#wrapper').toggleClass("toggled");
-        });
-        app.main.navigate('home');
+    checkLogin : ( ) => {
+          console.log('Check Login ...');
+          app.api.get('', app.main.initSession, sessionStorage.getItem('token'), app.main.login );
+    },
+
+    login : () => {
+        var page = 'login';
+        sessionStorage.setItem('page', page);
+        console.log(page);
+        app.main.navigate(page)
     },
 
     initSession : () => {
+        console.log('init session...');
         var page = app.main.getCurrentNav();
         if( sessionStorage.getItem('page') != page) {
           sessionStorage.setItem('page', page);
         }
+        $(document).ready(function() {
+            $('#wrapper').toggleClass("toggled");
+        });
+
+        app.main.navigate(page || 'home');
     },
 
     initNavbar : () => {
@@ -39,9 +56,9 @@ app.main = {
     },
 
     navigate : (link, div) => {
+        console.log(link);
         if( div === undefined )
             div = $("#container");
-            console.log("1");
 
         app.main.loadHtml(div, 'html/' + link + '/index.html', link)
 
