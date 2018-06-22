@@ -32,16 +32,10 @@ public class Main extends Application {
     private void initApp() throws IOException {
         System.out.println("App initializing..."); // LOG
         if( checkLogin() ) {
-            // Connect
-            Parent root = FXMLLoader.load(getClass().getResource("View/home.fxml"));
-            primaryStage.setTitle("My Corp Guardian - HOME");
-            primaryStage.setScene(new Scene(root, 800, 700));
-            primaryStage.show();
+            openLoginPage();
+
         } else {
-            Parent root = FXMLLoader.load(getClass().getResource("View/login.fxml"));
-            primaryStage.setTitle("My Corp Guardian - Login");
-            primaryStage.setScene(new Scene(root, 600, 400));
-            primaryStage.show();
+            openAddUserPage();
         }
     }
 
@@ -63,5 +57,26 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void openLoginPage() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("View/login.fxml"));
+        primaryStage.setTitle("My Corp Guardian - Login");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
+    }
+
+    public void openHomePage() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("View/home.fxml"));
+        primaryStage.setTitle("My Corp Guardian - HOME");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
+    }
+
+    public void openAddUserPage() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("View/addUser.fxml"));
+        primaryStage.setTitle("My Corp Guardian - Add User");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
     }
 }
