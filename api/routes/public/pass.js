@@ -1,12 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const publicConfig = require('./config');
+const EventController = require(publicConfig.controllers.event_path)
 const PassController = require(publicConfig.controllers.pass_path);
 
 //const HomeController = controllers.HomeController;
 
 const passRouter = express.Router();
 passRouter.use(bodyParser.json());
+
+passRouter.use(function(req, res, next) {
+    var device_id = req.query.id;
+    var door_id = req.query.device;
+    console.log(door_id);
+    EventController.add(new Date(), 'Badge passé : Porte '+ door_id + ' - Badge '+ device_id, door_id);
+    next();
+});
 
 /**
 * @api {get} /Pass GET Pass
@@ -18,9 +27,16 @@ passRouter.use(bodyParser.json());
 */
 passRouter.get('/', function(req, res) {
     const id = req.query.id;
+    var door_id = req.query.device;
     PassController.getAll(id)
       .then( (pass) => {
-          res.status(201).json(pass);
+          if( pass.length != 0) {
+            EventController.add(new Date(), 'Porte ouverte', door_id);
+          }else {
+            EventController.add(new Date(), 'Ouverture porte refusée', door_id);
+          }
+          res.status(200).json(pass);
+
       })
       .catch( (err) => {
           console.error(err);

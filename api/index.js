@@ -41,7 +41,7 @@ function _startServer() {
       });
     RouteManager.attach(app);
 
-    app.listen(8082, function() {
+    app.listen(3030, function() {
       console.log('Server started on 3000...');
   });
 }
