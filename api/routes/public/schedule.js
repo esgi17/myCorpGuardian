@@ -18,7 +18,7 @@ scheduleRouter.get('/', function(req, res) {
     ScheduleController.getAll(id)
       .then( (schedule) => {
         // Si la methode ne renvoie pas d'erreur, on renvoie le résultat
-        res.status(201).json({
+        res.status(200).json({
             success : true,
             status : 201,
             datas : schedule

@@ -4,3 +4,9 @@
 docs/~$scriptif_fonctionnel_technique.docx
 */node_modules/*
 */package-lock.json
+api/GuardianCorpAPI.postman_collection.json
+api/,hb.postman_environment.json
+docs/maquettes/maq_1.png
+docs/maquettes/maq_2.png
+docs/mcd.mwb
+docs/planning_general.mpp
