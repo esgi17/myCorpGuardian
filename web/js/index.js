@@ -9,7 +9,7 @@ app.main = {
     version : '1.0',
 
     init : () => {
-        console.log("init app");
+        console.log("Chargement appli");
         app.main.checkLogin();
         // app.main.initSession();
         // app.main.initNavbar();
@@ -19,19 +19,16 @@ app.main = {
     },
 
     checkLogin : ( ) => {
-          console.log('Check Login ...');
           app.api.get('', app.main.initSession, sessionStorage.getItem('token'), app.main.login );
     },
 
     login : () => {
         var page = 'login';
         sessionStorage.setItem('page', page);
-        console.log(page);
         app.main.navigate(page)
     },
 
     initSession : () => {
-        console.log('init session...');
         var page = app.main.getCurrentNav();
         if( sessionStorage.getItem('page') != page) {
           sessionStorage.setItem('page', page);
@@ -56,7 +53,6 @@ app.main = {
     },
 
     navigate : (link, div) => {
-        console.log(link);
         if( div === undefined )
             div = $("#container");
 
@@ -65,9 +61,8 @@ app.main = {
     },
 
     create : (child, parent) => {
-        console.log(parent);
-        parent.append('<div id="section-'+child+'"></div>');
-        $('#section-'+child).hide().load('html/'+ child + '/index.html').show();
+
+        $('#section-'+child).hide().load('html/' + child +'/overlay/list-'+ child + '.html').show();
         $.getScript('js/' + child + '.js');
     },
 
