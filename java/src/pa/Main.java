@@ -1,16 +1,17 @@
 package pa;
 
-import pa.controllers.ApiController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pa.Models.Api;
 
 import java.io.IOException;
 
-import static pa.controllers.ApiController.checkToken;
-import static pa.controllers.ApiController.getToken;
+import static pa.Models.Api.checkToken;
+import static pa.Models.Api.getToken;
+
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -32,10 +33,10 @@ public class Main extends Application {
     private void initApp() throws IOException {
         System.out.println("App initializing..."); // LOG
         if( checkLogin() ) {
-            openLoginPage();
+            openHomePage();
 
         } else {
-            openAddUserPage();
+            openLoginPage();
         }
     }
 

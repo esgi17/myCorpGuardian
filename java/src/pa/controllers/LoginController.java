@@ -3,8 +3,11 @@ package pa.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import pa.Models.Api;
+import pa.Models.HttpURLConnectionExample;
 
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
@@ -15,8 +18,11 @@ public class LoginController {
     @FXML PasswordField password;
 
 
-    public void authenticate() {
+    public void authenticate() throws Exception {
         System.out.print(login.getText()+password.getText());
+
+        Api.callAPI("POST", "admin/");
+
     }
 /*
     public void connect() {

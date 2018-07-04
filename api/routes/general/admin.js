@@ -6,6 +6,11 @@ const AdminController = controllers.AdminController;
 const adminRouter = express.Router();
 adminRouter.use(bodyParser.json());
 
+
+admin.post('/', function(req, res){
+  console.log(req.body.urlParameters);
+})
+
 adminRouter.get('/:id?', function(req, res) {
     // Récupération des parametres
     const id = req.params.id;
