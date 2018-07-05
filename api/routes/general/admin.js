@@ -7,8 +7,21 @@ const adminRouter = express.Router();
 adminRouter.use(bodyParser.json());
 
 
-admin.post('/', function(req, res){
-  console.log(req.body.urlParameters);
+adminRouter.post('/a', function(req, res){
+  console.log(req.body.login);
+  res.status(201).json({
+      success : true,
+      status : 201,
+      datas : {
+                  xxxx : "bbaa"
+              },
+      aaa : "a"
+  }).end();
+})
+
+adminRouter.get('/', function(req, res){
+  console.log("ifjzo");
+  return res.status(200).end();
 })
 
 adminRouter.get('/:id?', function(req, res) {
