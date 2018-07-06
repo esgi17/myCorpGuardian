@@ -1,18 +1,26 @@
 var app = app || {};
 
 app.devices = {
+    datas : {},
+
     init : () => {
         console.log("Appel script : devices.js");
-        app.api.get('device', app.devices.displayDevices, sessionStorage.getItem('token'), app.devices.displayDevices);
+        app.devices.loadDatas();
+    },
+
+    loadDatas : (res) => {
+        if( res === undefined) {
+            app.api.get('device', app.devices.loadDatas, sessionStorage.getItem('token'), app.devices.loadDatas);
+        } else {
+            app.devices.datas = res;
+        }
     },
 
     displayDevices : (devices) => {
         if( devices === undefined) {
             // display erreurs
         } else {
-            // console.log(devices);
             for( device in devices['datas'] ) {
-                console.log(devices['datas'][device]);
                 $('#list-devices').append('<tr><td>' + devices['datas'][device].id + '</td><td>' + devices['datas'][device].deviceType.name + '</td></tr>')
             }
         }

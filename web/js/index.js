@@ -8,24 +8,43 @@ app.main = {
 
     version : '1.0',
 
+    routes : [
+        'users',
+        'group',
+        'events',
+        'cameras',
+        'devices'
+   ],
+
     init : () => {
-        console.log("Chargement appli");
         app.main.checkLogin();
-        // app.main.initSession();
-        // app.main.initNavbar();
+        //app.main.initSession();
+        app.main.initNavbar();
         //
 
         // app.main.navigate('home');
     },
 
     checkLogin : ( ) => {
-          app.api.get('', app.main.initSession, sessionStorage.getItem('token'), app.main.login );
+          app.api.get('', app.main.initApp, sessionStorage.getItem('token'), app.main.login );
     },
 
     login : () => {
         var page = 'login';
         sessionStorage.setItem('page', page);
         app.main.navigate(page)
+    },
+
+    initApp : () => {
+        app.main.loadScript();
+    },
+
+    loadScript : () => {
+        for( i in app.main.routes ) {
+            $.getScript('js/' + app.main.routes[i] + '.js')
+            //app.api.get(app.main.routes[i], app.main.fillData, sessionStorage.getItem('token'), app.main.fillData);
+        }
+        app.main.initSession();
     },
 
     initSession : () => {
@@ -46,7 +65,7 @@ app.main = {
             if( !$(this).hasClass('active') ) {
                 $('.active').removeClass('active');
                 $(this).addClass('active');
-
+                sessionStorage.setItem('page', el);
                 app.main.navigate(el);
             }
         });

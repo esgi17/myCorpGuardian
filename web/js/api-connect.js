@@ -1,6 +1,7 @@
 var app = app || {};
 
 app.api = {
+
     post : (route, data, method, errorMethod) => {
         var url = app.main.api + route;
         $.ajax({
