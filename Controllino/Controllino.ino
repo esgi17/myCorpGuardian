@@ -17,8 +17,8 @@
 
 // _____ ETHERNET ___________
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ip(172, 16, 2, 177);
-IPAddress server(172, 16, 2, 23);
+IPAddress ip(192, 168, 1, 100);
+IPAddress server(192, 168, 1, 26);
 EthernetClient client;
 String response;
 
