@@ -5,15 +5,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.json.JSONObject;
 import pa.Models.Api;
-import pa.Models.HttpURLConnectionExample;
-
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 
 public class LoginController {
@@ -22,7 +13,7 @@ public class LoginController {
 
 
     public void authenticate() throws Exception {
-
+        connect();
     }
 
     public void connect() throws Exception {
@@ -31,8 +22,8 @@ public class LoginController {
         body.put("login", login.getText());
         body.put("password", password.getText());
 
-        JSONObject res = new JSONObject();
-        res = Api.callAPI("POST", "admin/a", body);
-        System.out.println(res.toString());
+        String res = Api.callAPI("POST", "admin/a", body);
+        JSONObject ret = new JSONObject(res);
+        System.out.println(ret.getString("success"));
     }
 }

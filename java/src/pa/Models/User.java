@@ -18,6 +18,11 @@ package pa.Models;
  */
 public class User {
     /**
+     * L'ID du "User"
+     */
+    private String _id;
+
+    /**
      * Le prénom du "User"
      */
     private String _firstname;
@@ -30,12 +35,8 @@ public class User {
     /**
      * L'id du groupe attribué au "User"
      */
-    private Integer _idGroup;
+    private String _idGroup;
 
-    /**
-     * La date de naissance du "User"
-     */
-    private String _birthdate;
 
     /**
      * Constructeur de l'objet User
@@ -47,34 +48,35 @@ public class User {
      * @param idGroup
      *                  Id du groupe du User
      */
-    public void User( String firstname, String lastname, Integer idGroup) {
+    public void User( String id, String firstname, String lastname, String idGroup) {
         this._firstname = firstname;
         this._lastname = lastname;
+        this._id = id;
 
         // Attribution du groupe par défaut si idGroup null
         if( idGroup == null ) {
-            this._idGroup = 0;
+            this._idGroup = "0";
         } else {
             this._idGroup = idGroup;
         }
     }
 
     /**
-     * Getter : Récupération de la date de naissance
-     * @return La date de naissance du User
+     * Getter : Récupération de l'ID
+     * @return L'ID du User
      */
-    public String get_birthdate() {
-        return _birthdate;
+    public String getId() {
+        return _id;
+    }
+    /**
+     * Setter : Modification de l'ID
+     * @param id
+     *                  L'ID du User
+     */
+    public void setId(String id) {
+        this._id = id;
     }
 
-    /**
-     * Setter : Modification de la date de naissance
-     * @param _birthdate
-     *                   Date de naissance du User
-     */
-    public void set_birthdate(String _birthdate) {
-        this._birthdate = _birthdate;
-    }
 
     /**
      * Getter : Récupération du prénom
@@ -116,7 +118,7 @@ public class User {
      * Getter : Récpération de l'id du groupe attribué
      * @return L'id du groupe attribué au User
      */
-    public Integer getIdGroup() {
+    public String getIdGroup() {
         return _idGroup;
     }
 
@@ -125,7 +127,7 @@ public class User {
      * @param idGroup
      *                  Id du groupe
      */
-    public void setIdGroup(Integer idGroup) {
+    public void setIdGroup(String idGroup) {
         this._idGroup = idGroup;
     }
 }

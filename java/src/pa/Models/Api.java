@@ -1,11 +1,8 @@
 package pa.Models;
 
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.*;
-import java.util.HashMap;
-import java.util.Map;
 import org.json.*;
 
 
@@ -21,11 +18,10 @@ public class Api {
 
     }
 
-    public static JSONObject callAPI(String method, String route, JSONObject body) throws Exception {
-        HttpURLConnectionExample http = new HttpURLConnectionExample();
+    public static String callAPI(String method, String route, JSONObject body) throws Exception {
         String url = api_url + route;
 
-        JSONObject res = new JSONObject();
+        String res ="";
 
         switch( method ) {
             case "GET" :
@@ -39,7 +35,7 @@ public class Api {
         return res;
     }
 
-    public static JSONObject get(String url) throws Exception {
+    public static String get(String url) throws Exception {
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -60,12 +56,12 @@ public class Api {
         }
         in.close();
 
-        JSONObject res = new JSONObject(response.toString());
+        String res = response.toString();
         return res;
 
     }
     // HTTP POST request
-    public static JSONObject post(String url, JSONObject body) throws Exception {
+    public static String post(String url, JSONObject body) throws Exception {
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -95,7 +91,7 @@ public class Api {
         }
         in.close();
 
-        JSONObject res = new JSONObject(response.toString());
+        String res = response.toString();
         return res;
     }
 

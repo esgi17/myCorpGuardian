@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pa.Models.Api;
+import pa.controllers.AddUserController;
 
 import java.io.IOException;
 
@@ -21,13 +22,6 @@ public class Main extends Application {
         this.primaryStage.setTitle("My Corp Guardian");
 
         initApp();
-
-        /*
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
-        */
     }
 
     private void initApp() throws IOException {
@@ -36,7 +30,9 @@ public class Main extends Application {
             openHomePage();
 
         } else {
-            openLoginPage();
+            openHomePage();
+            //openAddUserPage();
+            //openLoginPage();
         }
     }
 
