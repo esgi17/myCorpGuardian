@@ -86,9 +86,9 @@ void sendThrewEthernet() {
     client.stop();
   }
   // Requete GET sur API
-  if (client.connect(server, 3030)) {
-    client.print("GET /pass/?id="); client.print(cardCode); client.println("&device=1");
-    client.println("Host: 172.16.2.23");
+  if (client.connect(server, 3000)) {
+    client.print("GET /pass/?id="); client.print(cardCode); client.println("&door=1");
+    client.println("Host: 192.168.1.26");
     client.println("Connection: close");
     client.println();
   } else {
@@ -120,17 +120,16 @@ void setup()
 // S'execute à l'infini apres setup()
 void loop() {
   while (client.available()) {
-    response += String(client.read());
+    char c = client.read();
+    response += c;
     responseNotReaded = true;
   }
   if (responseNotReaded) {
     responseNotReaded = false;
-    if (response.endsWith("[]")) {
-      response.replace(response, "");
-    } else {
-      response.replace(response, "");
+    if (response.indexOf("202 Accepted") != -1) {
       openDoor();
-    }
+    } 
+    response.replace(response, "");
   }
   if (!flagDone) {
     if (--weigand_counter == 0)
