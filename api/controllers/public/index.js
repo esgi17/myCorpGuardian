@@ -8,8 +8,6 @@ module.exports = {
   DoorController: require('./door'),
   EventController: require('./event'),
   ScheduleController: require('./schedule'),
-<<<<<<< HEAD
   StateController: require('./state')
-=======
->>>>>>> Controllino
+
 }
