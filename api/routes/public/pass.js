@@ -1,13 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const publicConfig = require('./config');
+<<<<<<< HEAD
 const PassController = require(publicConfig.controllers.pass_path);
 
+=======
+const EventController = require(publicConfig.controllers.event_path)
+const PassController = require(publicConfig.controllers.pass_path);
+const ScheduleController = require(publicConfig.controllers.schedule_path);
+>>>>>>> Controllino
 //const HomeController = controllers.HomeController;
 
 const passRouter = express.Router();
 passRouter.use(bodyParser.json());
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Controllino
 /**
 * @api {get} /Pass GET Pass
 * @apiGroup pass
@@ -17,6 +28,7 @@ passRouter.use(bodyParser.json());
 * @apiUse error404
 */
 passRouter.get('/', function(req, res) {
+<<<<<<< HEAD
     const id = req.body.id;
     PassController.getAll(id)
       .then( (pass) => {
@@ -28,6 +40,37 @@ passRouter.get('/', function(req, res) {
       });
 });
 
+=======
+    const id = req.query.id;
+    var door_id = req.query.device;
+    passRouter.use(function(req, res, next) {
+        var device_id = req.query.id;
+        var door_id = req.query.door;
+        EventController.add(new Date(), 'Badge passé : Porte '+ door_id + ' - Badge '+ device_id, door_id);
+        next();
+    });
+    ScheduleController.getOne(door_id)
+      .then( (schedule) => {
+        var datehour = new Date();
+        PassController.getAll(id)
+          .then( (pass) => {
+              if( pass.length != 0 && parseInt(schedule.dataValues.h_start) < datehour.getHours() && datehour.getHours() <= parseInt(schedule.dataValues.h_stop)) {
+                EventController.add(new Date(), 'Porte ouverte', door_id);
+                res.status(202).json();
+              }else {
+                EventController.add(new Date(), 'Ouverture porte refusée', door_id);
+                res.status(403).json();
+              }
+          })
+          .catch( (err) => {
+              console.error(err);
+              res.status(500).end();
+          });
+  });
+});
+
+
+>>>>>>> Controllino
 /**
 * @api {post} /Pass ADD Pass
 * @apiGroup pass

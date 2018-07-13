@@ -6,6 +6,7 @@ const AdminController = controllers.AdminController;
 const adminRouter = express.Router();
 adminRouter.use(bodyParser.json());
 
+<<<<<<< HEAD
 
 adminRouter.post('/a', function(req, res){
   console.log(req.body.login);
@@ -23,6 +24,8 @@ adminRouter.get('/', function(req, res){
   return res.status(200).end();
 })
 
+=======
+>>>>>>> Controllino
 adminRouter.get('/:id?', function(req, res) {
     // Récupération des parametres
     const id = req.params.id;
@@ -48,7 +51,10 @@ adminRouter.get('/:id?', function(req, res) {
 });
 
 adminRouter.post('/', function(req, res) {
+<<<<<<< HEAD
     console.log(req);
+=======
+>>>>>>> Controllino
     /* Récupération des parametres */
     const login = req.body.login;
     const password = req.body.password;

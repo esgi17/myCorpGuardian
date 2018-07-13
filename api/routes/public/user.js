@@ -148,8 +148,12 @@ userRouter.delete('/', function (req, res) {
 userRouter.put('/', function(req, res) {
   console.log("yo");
   const firstname = req.body.firstname;
+<<<<<<< HEAD
   const lastname = req.body.lastname;
   const login = req.body.login;
+=======
+  const lastame = req.body.lastname;
+>>>>>>> Controllino
   const job = req.body.job || "host";
   const group_id = req.body.group_id || 0;
   const id = parseInt(req.body.id);
@@ -157,7 +161,11 @@ userRouter.put('/', function(req, res) {
   UserController.getAll(id)
     .then( (user) => {
       if (user) {
+<<<<<<< HEAD
           UserController.update(id, firstname, lastname, login, job, group_id)
+=======
+          UserController.update(id, firstname, lastname, job, group_id)
+>>>>>>> Controllino
             .then( (user) => {
                 res.status(200).json({
                     success : true,

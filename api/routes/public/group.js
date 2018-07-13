@@ -11,8 +11,13 @@ groupRouter.use(bodyParser.json());
 * @method : get
 * @route : /group/
 */
+<<<<<<< HEAD
 groupRouter.get('/:id?', function(req, res) {
     const id = req.params.id;
+=======
+groupRouter.get('/', function(req, res) {
+    const id = req.body.id;
+>>>>>>> Controllino
     GroupController.getAll( id )
       .then( (group) => {
           res.status(201).json(group);

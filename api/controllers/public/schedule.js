@@ -71,6 +71,32 @@ ScheduleController.getAll = function (id) {
     return Schedule.findAll(options);
 };
 
+<<<<<<< HEAD
+=======
+ScheduleController.getOne = function (id_door, id) {
+    const options = {
+      include: [{
+        model: ModelIndex.Group,
+        as : 'group'
+      },
+      {
+        model: ModelIndex.Door,
+        as : 'door'
+      }]
+    };
+    const where = {
+      'door_id' : id_door
+    };
+
+    if( id !== undefined ) {
+        where.id = {
+            [Op.eq] : `${id}`
+        };
+    }
+    options.where = where;
+    return Schedule.findOne(options);
+};
+>>>>>>> Controllino
 
 // Export du controller
 module.exports = ScheduleController;
