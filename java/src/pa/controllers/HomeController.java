@@ -1,5 +1,7 @@
 package pa.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +17,8 @@ import pa.Models.Api;
 import pa.Models.NavHandler;
 import pa.Models.User;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.IOException;
 
 public class HomeController {
@@ -27,11 +31,15 @@ public class HomeController {
     @FXML Label labelLastname;
     @FXML Label head;
     @FXML Button addBtn;
+    @FXML Button deleteBtn;
+    @FXML Button updateBtn;
+
+    User userSelected= new User();
 
     ObservableList<String> users = FXCollections.observableArrayList();
     ObservableList<String> groups = FXCollections.observableArrayList();
 
-    public void fillUserList() throws Exception {
+    public User[] fillUserList() throws Exception {
         User res[] = getUsers();
         usersList.getItems().clear();
         // Rempli le tableau de users
@@ -39,6 +47,7 @@ public class HomeController {
             users.add(userCreateLine(res[i]));
         }
         usersList.setItems(users);
+        return res;
     }
 
 
@@ -58,6 +67,7 @@ public class HomeController {
             users[i].setId(user.getString("id"));
             users[i].setFirstname(user.getString("firstname"));
             users[i].setLastname(user.getString("lastname"));
+            users[i].setJob(user.getString("job"));
             users[i].setIdGroup(getGroupName(user.getString("group_id")));
         }
 
@@ -66,7 +76,6 @@ public class HomeController {
 
     public String getGroupName(String id) throws Exception {
         JSONObject empty = new JSONObject();
-        String json = "";
 
         // Recupere resultat requete
         String str = Api.callAPI("GET", "group/" + id, empty);
@@ -77,7 +86,7 @@ public class HomeController {
     }
 
     public String userCreateLine(User user){
-        return user.getLastname() + ", " + user.getFirstname();
+        return user.getLastname().toUpperCase() + ", " + user.getFirstname();
     }
 
 
@@ -106,7 +115,7 @@ public class HomeController {
         return res;
     }
 
-    public boolean addUser() throws Exception {
+    public boolean addOrUpdateUser(String method, String id) throws Exception {
         // Verif si champ vide
         if (firstname.getText().equalsIgnoreCase( "" )) {
             labelFirstname.setText("Empty Firstname");
@@ -121,6 +130,11 @@ public class HomeController {
             body.put( "firstname", firstname.getText() );
             body.put( "lastname", lastname.getText() );
             body.put( "job", job.getText() );
+
+            //Si c'est update on passe l'id
+            if(method.equalsIgnoreCase("PUT")){
+                body.put("id", id);
+            }
             // Recuperation de l'id du groupe
             if (listGroup.getValue() != null) {
                 String groupId = listGroup.getValue().toString().substring( 0, listGroup.getValue().toString().indexOf( " " ) );
@@ -128,16 +142,12 @@ public class HomeController {
             } else {
                 body.put( "group_id", "0" );
             }
-            String res = Api.callAPI( "POST", "user/", body );
+            String res = Api.callAPI( method, "user/", body );
             JSONObject apiReturn = new JSONObject( res );
 
             //Raz champs
-            labelFirstname.setText("Firstname");
-            labelLastname.setText( "Lastname");
-            firstname.setText("");
-            lastname.setText("");
-            job.setText("");
             fillUserList();
+            createForm();
 
             if (apiReturn.getString( "success" ) == "true") {
                 return true;
@@ -148,9 +158,54 @@ public class HomeController {
         }
     }
 
+    public void addUser() throws Exception {
+        addOrUpdateUser("POST","0");
+    }
+
+    // Formulaire en mode update
+    public void updateForm() throws Exception {
+        head.setText("Update User");
+        deleteBtn.setVisible(true);
+        addBtn.setVisible(false);
+        updateBtn.setVisible(true);
+        User user = getUserSelected();
+        firstname.setText(user.getFirstname());
+        lastname.setText(user.getLastname());
+        job.setText(user.getJob());
+    }
+
+    // Formulaire en mode create
+    public void createForm() {
+        head.setText("New User");
+        deleteBtn.setVisible(false);
+        updateBtn.setVisible(false);
+        labelFirstname.setText("Firstname");
+        labelLastname.setText( "Lastname");
+        addBtn.setVisible(true);
+        firstname.setText("");
+        lastname.setText("");
+        job.setText("");
+    }
+
     //Modifier user
-    public void modifUser(){
-        head.setText("User");
-        addBtn.setText("Modify User");
+    public void updateUser() throws Exception {
+        fillUserList();
+        String id = userSelected.getId();
+        addOrUpdateUser("PUT", id);
+    }
+
+    public User getUserSelected() throws Exception {
+        int userIndex = usersList.getSelectionModel().getSelectedIndex();
+        userSelected = fillUserList()[userIndex];
+        return userSelected;
+    }
+
+
+    // Supprimer user
+    public void deleteUser() throws Exception {
+        JSONObject body = new JSONObject();
+        body.put( "id", userSelected.getId());
+        Api.callAPI( "DELETE", "user/", body );
+        fillUserList();
     }
 }

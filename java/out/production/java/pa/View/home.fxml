@@ -22,15 +22,24 @@
                      <children>
                         <VBox prefHeight="387.0" prefWidth="637.0">
                            <children>
-                              <Button fx:id="loadUsers" mnemonicParsing="false" onMouseClicked="#fillUserList" prefHeight="25.0" prefWidth="286.0" text="Load Users">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Button>
+                              <HBox>
+                                 <children>
+                                    <Button fx:id="loadUsers" mnemonicParsing="false" onMouseClicked="#fillUserList" prefHeight="25.0" prefWidth="286.0" text="Load Users">
+                                       <HBox.margin>
+                                          <Insets right="5.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="newUser" mnemonicParsing="false" onMouseClicked="#createForm" prefHeight="25.0" prefWidth="286.0" text="New User">
+                                       <HBox.margin>
+                                          <Insets left="5.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
                               <HBox prefHeight="20.0" prefWidth="206.0" />
                               <HBox prefHeight="315.0" prefWidth="287.0">
                                  <children>
-                                    <ListView fx:id="usersList" onMouseClicked="#modifUser" prefWidth="310.0" />
+                                    <ListView fx:id="usersList" onMouseClicked="#updateForm" prefWidth="310.0" />
                                  </children>
                               </HBox>
                            </children>
@@ -52,7 +61,7 @@
                         </Label>
                         <Label fx:id="labelFirstname" alignment="CENTER" prefHeight="25.0" prefWidth="310.0" text="Firstname">
                            <VBox.margin>
-                              <Insets bottom="10.0" top="20.0" />
+                              <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
                         <TextField fx:id="firstname">
@@ -62,7 +71,7 @@
                         </TextField>
                         <Label fx:id="labelLastname" alignment="CENTER" prefHeight="25.0" prefWidth="310.0" text="Lastname">
                            <VBox.margin>
-                              <Insets bottom="10.0" />
+                              <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
                         <TextField fx:id="lastname">
@@ -72,7 +81,7 @@
                         </TextField>
                         <Label fx:id="labelJob" alignment="CENTER" prefHeight="25.0" prefWidth="310.0" text="Job">
                            <VBox.margin>
-                              <Insets bottom="10.0" />
+                              <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
                         <TextField fx:id="job">
@@ -82,9 +91,19 @@
                         </TextField>
                         <ComboBox fx:id="listGroup" onMouseClicked="#fillGroupList" prefWidth="310.0" promptText="User Group">
                            <VBox.margin>
-                              <Insets bottom="30.0" left="40.0" right="40.0" />
+                              <Insets bottom="10.0" left="40.0" right="40.0" />
                            </VBox.margin>
                         </ComboBox>
+                        <Button fx:id="deleteBtn" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#deleteUser" prefWidth="310.0" text="Delete User" visible="false">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="40.0" right="40.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="updateBtn" mnemonicParsing="false" onMouseClicked="#updateUser" prefWidth="310.0" text="Update User" visible="false">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="40.0" right="40.0" />
+                           </VBox.margin>
+                        </Button>
                         <Button fx:id="addBtn" mnemonicParsing="false" onMouseClicked="#addUser" prefWidth="310.0" text="Add User">
                            <VBox.margin>
                               <Insets left="40.0" right="40.0" />

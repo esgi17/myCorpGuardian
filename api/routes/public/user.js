@@ -157,7 +157,8 @@ userRouter.put('/', function(req, res) {
   UserController.getAll(id)
     .then( (user) => {
       if (user) {
-          UserController.update(id, firstname, lastname, login, job, group_id)
+        console.log(id);
+          UserController.update(id, firstname, lastname, job, group_id)
             .then( (user) => {
                 res.status(200).json({
                     success : true,
