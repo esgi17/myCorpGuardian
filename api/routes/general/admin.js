@@ -6,24 +6,6 @@ const AdminController = controllers.AdminController;
 const adminRouter = express.Router();
 adminRouter.use(bodyParser.json());
 
-
-adminRouter.post('/a', function(req, res){
-  console.log(req.body.login);
-  res.status(201).json({
-      success : true,
-      status : 201,
-      datas : {
-                  xxxx : "bbaa"
-              },
-      aaa : "a"
-  }).end();
-})
-
-adminRouter.get('/', function(req, res){
-  console.log("ifjzo");
-  return res.status(200).end();
-})
-
 adminRouter.get('/:id?', function(req, res) {
     // Récupération des parametres
     const id = req.params.id;
@@ -49,7 +31,6 @@ adminRouter.get('/:id?', function(req, res) {
 });
 
 adminRouter.post('/', function(req, res) {
-    console.log(req);
     /* Récupération des parametres */
     const login = req.body.login;
     const password = req.body.password;
