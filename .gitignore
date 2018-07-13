@@ -3,4 +3,4 @@
 *.tmp
 docs/~$scriptif_fonctionnel_technique.docx
 */node_modules/*
-java/.idea/workspace.xml
+*/java/.idea/workspace.xml
