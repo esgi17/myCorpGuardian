@@ -1,0 +1,35 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router'
+import { AuthService } from './services/auth.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app';
+
+  constructor( private authService: AuthService, private router: Router) {
+      this.authService.checkLogin().then( (data:object) => {
+          sessionStorage.setItem('Logged', JSON.stringify(data));
+          this.router.navigate(['/home'])
+          this.authService.isLogged = true;
+      })
+      .catch( (err) => {
+          this.authService.isLogged = false;
+          this.router.navigate(['/login'])
+      });
+
+      //console.log(this.authService.checkLogin())
+      //this.authService.checkLogin();
+      //this.isLogged = sessionStorage.getItem('logged')
+      //console.log(this.isLogged)
+  }
+
+  get checkLogin() : boolean {
+      console.log(this.authService.isLogged)
+      return this.authService.isLogged
+  }
+
+}
