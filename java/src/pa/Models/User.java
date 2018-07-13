@@ -33,6 +33,11 @@ public class User {
     private String _lastname;
 
     /**
+     * Le job du "User"
+     */
+    private String _job;
+
+    /**
      * L'id du groupe attribué au "User"
      */
     private String _idGroup;
@@ -48,10 +53,11 @@ public class User {
      * @param idGroup
      *                  Id du groupe du User
      */
-    public void User( String id, String firstname, String lastname, String idGroup) {
+    public void User( String id, String firstname, String lastname, String job, String idGroup) {
         this._firstname = firstname;
         this._lastname = lastname;
         this._id = id;
+        this._job = job;
 
         // Attribution du groupe par défaut si idGroup null
         if( idGroup == null ) {
@@ -75,6 +81,23 @@ public class User {
      */
     public void setId(String id) {
         this._id = id;
+    }
+
+
+    /**
+     * Getter : Récupération du job
+     * @return Le job du User
+     */
+    public String getJob() {
+        return _job;
+    }
+    /**
+     * Setter : Modification du job
+     * @param job
+     *                  Le job du User
+     */
+    public void setJob(String job) {
+        this._job = job;
     }
 
 
