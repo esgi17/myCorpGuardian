@@ -1,24 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const publicConfig = require('./config');
-<<<<<<< HEAD
-const PassController = require(publicConfig.controllers.pass_path);
-
-=======
 const EventController = require(publicConfig.controllers.event_path)
 const PassController = require(publicConfig.controllers.pass_path);
 const ScheduleController = require(publicConfig.controllers.schedule_path);
->>>>>>> Controllino
 //const HomeController = controllers.HomeController;
 
 const passRouter = express.Router();
 passRouter.use(bodyParser.json());
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> Controllino
 /**
 * @api {get} /Pass GET Pass
 * @apiGroup pass
@@ -28,19 +18,6 @@ passRouter.use(bodyParser.json());
 * @apiUse error404
 */
 passRouter.get('/', function(req, res) {
-<<<<<<< HEAD
-    const id = req.body.id;
-    PassController.getAll(id)
-      .then( (pass) => {
-          res.status(201).json(pass);
-      })
-      .catch( (err) => {
-          console.error(err);
-          res.status(500).end();
-      });
-});
-
-=======
     const id = req.query.id;
     var door_id = req.query.device;
     passRouter.use(function(req, res, next) {
@@ -70,7 +47,6 @@ passRouter.get('/', function(req, res) {
 });
 
 
->>>>>>> Controllino
 /**
 * @api {post} /Pass ADD Pass
 * @apiGroup pass

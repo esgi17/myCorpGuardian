@@ -9,11 +9,7 @@ module.exports = {
         door_path : '../../controllers/public/door',
         deviceType_path : '../../controllers/public/deviceType',
         device_path : '../../controllers/public/device',
-<<<<<<< HEAD
         captor_path : '../../controllers/public/captor',
         state_path : '../../controllers/public/state'
-=======
-        captor_path : '../../controllers/public/captor'
->>>>>>> Controllino
     }
 }

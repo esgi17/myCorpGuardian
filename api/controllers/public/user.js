@@ -32,11 +32,7 @@ UserController.delete = function(id) {
 /**
 *  Modification d'un User en base
 **/
-<<<<<<< HEAD
-UserController.update = function(id, firstname, lastname, group_id) {
-=======
 UserController.update = function(id, firstname, lastname, job, group_id) {
->>>>>>> Controllino
     return User.update({
         firstname: firstname,
         lastname: lastname,
