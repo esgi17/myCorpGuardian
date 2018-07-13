@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const publicConfig = require('./config');
@@ -14,11 +15,11 @@ scheduleRouter.use(bodyParser.json());
 * @apiUse error500
 */
 scheduleRouter.get('/', function(req, res) {
-    const id = req.body.id;
+    const id = req.query.id;
     ScheduleController.getAll(id)
       .then( (schedule) => {
         // Si la methode ne renvoie pas d'erreur, on renvoie le résultat
-        res.status(201).json({
+        res.status(200).json({
             success : true,
             status : 201,
             datas : schedule
