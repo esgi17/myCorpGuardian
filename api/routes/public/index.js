@@ -10,6 +10,7 @@ privateRouteManager.attach = function(app) {
     app.use('/deviceType', require('./deviceType'));
     app.use('/device', require('./device'));
     app.use('/captor', require('./captor'));
+    app.use('/state', require('./state'));
 }
 
 module.exports = privateRouteManager;

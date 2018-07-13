@@ -30,9 +30,10 @@ public class Main extends Application {
             openHomePage();
 
         } else {
-            openHomePage();
+            //openHomePage();
             //openAddUserPage();
             //openLoginPage();
+            openEventPage();
         }
     }
 
@@ -56,6 +57,7 @@ public class Main extends Application {
         launch(args);
     }
 
+
     public void openLoginPage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("View/login.fxml"));
         primaryStage.setTitle("My Corp Guardian - Login");
@@ -66,6 +68,13 @@ public class Main extends Application {
     public void openHomePage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("View/home.fxml"));
         primaryStage.setTitle("My Corp Guardian - HOME");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
+    }
+
+    public void openEventPage() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("View/event.fxml"));
+        primaryStage.setTitle("My Corp Guardian - EVENT");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }

@@ -20,7 +20,6 @@ adminRouter.post('/a', function(req, res){
 })
 
 adminRouter.get('/', function(req, res){
-  console.log("ifjzo");
   return res.status(200).end();
 })
 
