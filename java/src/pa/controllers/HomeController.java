@@ -39,6 +39,7 @@ public class HomeController {
     ObservableList<String> users = FXCollections.observableArrayList();
     ObservableList<String> groups = FXCollections.observableArrayList();
 
+    // Affiche la liste des users
     public User[] fillUserList() throws Exception {
         User res[] = getUsers();
         usersList.getItems().clear();
@@ -50,7 +51,7 @@ public class HomeController {
         return res;
     }
 
-
+    // Retourne un tableau de users avec tout les users
     public User[] getUsers() throws Exception {
         JSONObject empty = new JSONObject();
 
@@ -68,12 +69,13 @@ public class HomeController {
             users[i].setFirstname(user.getString("firstname"));
             users[i].setLastname(user.getString("lastname"));
             users[i].setJob(user.getString("job"));
-            users[i].setIdGroup(getGroupName(user.getString("group_id")));
+            users[i].setIdGroup(user.getString("group_id"));
         }
 
         return users;
     }
 
+    // Renvoie le nom de groupe avec l'id en parametre
     public String getGroupName(String id) throws Exception {
         JSONObject empty = new JSONObject();
 
@@ -85,24 +87,25 @@ public class HomeController {
         return res.getString("name");
     }
 
+    // Cree une ligne dans la listview de users
     public String userCreateLine(User user){
         return user.getLastname().toUpperCase() + ", " + user.getFirstname();
     }
 
 
-    //ADD user
+    //Rempli la combobox avec tout les groupes
     public void fillGroupList() throws Exception {
         listGroup.getItems().clear();
         groups.addAll(getGroups());
         listGroup.setItems(groups);
     }
 
+    // Retourne un tableau de tout les groupes
     public String[] getGroups() throws Exception {
         JSONObject empty = new JSONObject();
-        String json = "";
 
         // Recupere resultat requete
-        json = Api.callAPI("GET", "group/", empty);
+        String json = Api.callAPI("GET", "group/", empty);
         JSONArray jArray = new JSONArray(json);
         String res[] = new String[jArray.length()];
 
@@ -115,6 +118,7 @@ public class HomeController {
         return res;
     }
 
+    // Execute requete add ou update d'un user
     public boolean addOrUpdateUser(String method, String id) throws Exception {
         // Verif si champ vide
         if (firstname.getText().equalsIgnoreCase( "" )) {
@@ -158,6 +162,7 @@ public class HomeController {
         }
     }
 
+    // Connecté au bouton add user
     public void addUser() throws Exception {
         addOrUpdateUser("POST","0");
     }
@@ -172,6 +177,7 @@ public class HomeController {
         firstname.setText(user.getFirstname());
         lastname.setText(user.getLastname());
         job.setText(user.getJob());
+        listGroup.getSelectionModel().select(Integer.parseInt(userSelected.getIdGroup()));
     }
 
     // Formulaire en mode create
@@ -185,15 +191,17 @@ public class HomeController {
         firstname.setText("");
         lastname.setText("");
         job.setText("");
+        listGroup.getSelectionModel().clearSelection();
     }
 
-    //Modifier user
+    //Modifie user
     public void updateUser() throws Exception {
         fillUserList();
         String id = userSelected.getId();
         addOrUpdateUser("PUT", id);
     }
 
+    // Retourne le user selectionne
     public User getUserSelected() throws Exception {
         int userIndex = usersList.getSelectionModel().getSelectedIndex();
         userSelected = fillUserList()[userIndex];

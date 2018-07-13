@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "2314330f-b64f-4539-a178-8923a6c220b2",
+		"name": "GuardianCorpAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:3030/pass/?id=21428",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b57794b-f2c0-4ff8-8001-ace032ecd91d",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Has 1 entry\"] = jsonData.length === 1;",
+							"tests[\"Assert name\"] = jsonData[0].id === 21428;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:3030/pass/?id=21428",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"pass",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "21428"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3030/pass/?id=1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d600841b-e537-4f71-a3d5-e59f46624658",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Has 1 entry\"] = jsonData.length === 1;",
+							"tests[\"Assert name\"] = jsonData[0].id === 1;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:3030/pass/?id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"pass",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
