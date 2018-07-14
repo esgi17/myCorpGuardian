@@ -1,4 +1,4 @@
 module.exports = {
-  UserController: require('./user'),
-  PassController: require('./pass')
+  PublicController: require('./public'),
+  AdminController: require('./general')
 }

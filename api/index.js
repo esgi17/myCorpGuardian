@@ -1,9 +1,17 @@
 const express = require('express');
-const ModelIndex = require('./models');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
+const config = require('./config');
+const ModelIndex = require('./models/public');
+const GeneralModelIndex = require('./models/general');
 const RouteManager = require('./routes');
 
-ModelIndex
+GeneralModelIndex
   .openDatabase()
+  .then( () => {
+      ModelIndex
+        .openDatabase()
+  })
   .then(_startServer)
   .catch((err) => {
     console.error(err);
@@ -13,28 +21,20 @@ ModelIndex
 
 function _startServer() {
 
-  const app = express();
-  app.use(function (req, res, next) {
+    const app = express();
+    app.set('secret', config.secret);
 
-        // Website you wish to allow to connect
-        res.setHeader('Access-Control-Allow-Origin', '*');
+    app.use(cors({
+      'allowedHeaders': ['sessionId', 'Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
+      'exposedHeaders': ['sessionId'],
+      'origin': '*',
+      'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      'preflightContinue': false
+    }));
 
-        // Request methods you wish to allow
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    RouteManager.attach(app);
 
-        // Request headers you wish to allow
-        res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-
-        // Set to true if you need the website to include cookies in the requests sent
-        // to the API (e.g. in case you use sessions)
-        res.setHeader('Access-Control-Allow-Credentials', true);
-
-        // Pass to next layer of middleware
-        next();
-    });
-  RouteManager.attach(app);
-
-  app.listen(9090, function() {
-    console.log('Server started on 9090...');
+    app.listen(3000, function() {
+      console.log('Server started on 3000...');
   });
 }
