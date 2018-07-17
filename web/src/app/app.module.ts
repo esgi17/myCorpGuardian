@@ -16,6 +16,9 @@ import { CamerasComponent } from './cameras/cameras.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { ListUsersComponent } from './list-users/list-users.component';
+import { ListEventsComponent } from './list-events/list-events.component';
+import { OverviewCameraComponent } from './overview-camera/overview-camera.component';
+import { ListDevicesComponent } from './list-devices/list-devices.component';
 
 const appRoutes : Routes = [
     { path: 'home', component: HomeComponent },
@@ -39,7 +42,10 @@ const appRoutes : Routes = [
     EventsComponent,
     CamerasComponent,
     LoginComponent,
-    ListUsersComponent
+    ListUsersComponent,
+    ListEventsComponent,
+    OverviewCameraComponent,
+    ListDevicesComponent
   ],
   imports: [
     BrowserModule,

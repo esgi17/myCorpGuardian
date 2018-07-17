@@ -31,16 +31,21 @@ export class LoginComponent implements OnInit {
     }
 
     submit() {
+        var res = <any>{};
         //console.log(this.loginForm.value);
+        const login = this.loginForm.get('login').value;
+        const password = this.loginForm.get('password').value;
+
           const datas = {
-            "login" : this.loginForm.get('login').value,
-            "password" : this.loginForm.get('password').value
+              'login' : login,
+              'password' : password
           }
+          console.log(this.loginForm.get('login').value);
           this.authService.login(datas).then(
               (result) => {
-                  result = <Object>result;
-                  if( result !== undefined ) {
-                      localStorage.setItem('token', result.token);
+                  res = result;
+                  if( res !== undefined ) {
+                      localStorage.setItem('token', res.token);
                       this.router.navigate(['/home']);
                   }
               },

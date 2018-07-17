@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
 
+
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit {
-  users:Array<Object>;
-  res:Object;
+  users: Array<Object>;
+
   constructor( private usersService : UsersService ) { }
 
   getUsers() {
@@ -16,10 +17,11 @@ export class ListUsersComponent implements OnInit {
   }
 
   getAll() {
+      var res = <any>{};
       this.usersService.getAll().then(
           (result) => {
-              this.res = <Object>result;
-              this.users = this.res.datas;
+              res = result;
+              this.users = <Array<Object>>Object.keys(res.datas).map( key => res.datas[key]);
           },
           (error) => {
               console.log(error);

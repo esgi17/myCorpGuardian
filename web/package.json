@@ -23,6 +23,7 @@
     "bootstrap": "^4.1.2",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
+    "streamedian": "git://github.com/Streamedian/html5_rtsp_player.git",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

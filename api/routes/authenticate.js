@@ -15,7 +15,7 @@ loginRouter.use(bodyParser.json());
 
 
 loginRouter.post('/', function(req,res) {
-  console.log(req.body.login);
+  console.log(req.body);
   const login = req.body.login;
   const password = req.body.password;
   if( login === undefined || password === undefined ) {

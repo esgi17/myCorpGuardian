@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 
@@ -9,7 +8,7 @@ import { AuthService } from './auth.service';
 })
 export class UsersService {
 
-  constructor(private authService: AuthService, private httpClient: HttpClient, private router : Router) { }
+  constructor(private authService: AuthService, private httpClient: HttpClient) { }
 
   getAll() {
       return new Promise(

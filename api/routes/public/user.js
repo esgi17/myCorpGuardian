@@ -50,10 +50,10 @@ userRouter.get('/:id?', function(req, res) {
 */
 userRouter.post('/', function(req, res) {
     /* Récupération des parametres */
-    const name = req.body.name;
-    const surname = req.body.surname;
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
     const job = req.body.job || "host";
-    const group_id = req.body.group_id || 0;
+    const group_id = req.body.group_id || 1;
 
     // Si les parametres obligatoires ne sont pas tous remplis
     if( firstname === undefined || lastname === undefined) {
@@ -66,7 +66,7 @@ userRouter.post('/', function(req, res) {
         return;
     }
     // Sinon, on appelle la methode
-    UserController.add(firstname, lastname, login, job, isManager, group_id)
+    UserController.add(firstname, lastname, job, group_id)
       .then( (user) => {
           // Si la methode ne renvoie pas d'erreur, on renvoie le résultat
           res.status(200).json({

@@ -25,21 +25,26 @@ export class AuthService {
     * Authentification
     **/
     login( datas ) {
+      var res = <any>{};
       return new Promise(
           (resolve, reject) => {
+              console.log(datas);
               const options = {
                  headers: {
                      'Content-Type': 'application/x-www-form-urlencoded',
                      'Access-Control-Allow-Origin': '*'
                  }
               };
-              this.httpClient.post("http://localhost:3000/", datas).subscribe(
+              this.httpClient.post("http://localhost:3000/", datas, options ).subscribe(
                   (data) => {
-                      this.setToken(data.token);
+                      res = data
+                      this.setToken(res.token);
                       localStorage.setItem('isLogged', "1")
-                      resolve(data);
+                      resolve(res);
                   },
                   (error) => {
+                    console.log("bonjour");
+                      console.log(error)
                       localStorage.setItem('isLogged', "0")
                       this.isLogged = false;
                       reject(error);
@@ -67,7 +72,7 @@ export class AuthService {
                        'Access-Control-Allow-Origin': '*'
                    }
                 };
-                this.httpClient.post("http://localhost:3000/check", null, options).subscribe(
+                this.httpClient.get("http://localhost:3000/", options).subscribe(
                     (data) => {
                         resolve(1);
                     },
