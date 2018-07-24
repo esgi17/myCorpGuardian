@@ -12,6 +12,7 @@ define({ "api": [
           "type": "json"
         }
       ]
+    },
     "version": "0.0.0",
     "filename": "./routes/captor.js",
     "groupTitle": "captor",
