@@ -34,9 +34,13 @@ export class AuthService {
                 this.apiService.post("", datas)
                   .then(
                       (data) => {
+                          console.log(data)
                           res = data;
+                          console.log(res);
                           sessionStorage.setItem('isLogged', "1");
                           sessionStorage.setItem('token', res.token);
+
+                          sessionStorage.setItem('isAdmin', ""+res.isAdmin)
                           resolve(data);
                       },
                       (error) => {
@@ -45,6 +49,7 @@ export class AuthService {
                           reject(error);
                       }
                   )
+                  .catch( (err) => console.log(err));
             }
         )
     }
@@ -61,6 +66,7 @@ export class AuthService {
     checkLogin() {
         return new Promise(
             (resolve, reject) => {
+                sessionStorage.getItem('token');
                 this.apiService.get("").then(
                     (data) => {
                         sessionStorage.setItem('isLogged', "1");

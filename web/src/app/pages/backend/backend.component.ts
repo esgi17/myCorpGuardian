@@ -17,21 +17,7 @@ export class BackendComponent implements OnInit {
   addUserActive: Boolean;
 
   constructor( private authService: AuthService, private modalService: NgbModal, private router: Router) {
-      this.authService.checkLogin()
-          .then(
-              (data) => {
-                  if( sessionStorage.getItem('isAdmin') == "1" ) {
-
-                      this.router.navigate(['/admin']);
-                  } else {
-                        this.router.navigate(['/home']);
-                  }
-              },
-              (error) => {
-                  console.error(error);
-                  this.router.navigate(['/login']);
-              }
-          )
+      
    }
 
    loadCreateCorp($event, content) {
@@ -100,9 +86,7 @@ export class BackendComponent implements OnInit {
    }
 
   ngOnInit() {
-      // if( sessionStorage.getItem('isAdmin') == "1") {
-      //     this.router.navigate(['/admin'])
-      // }
+
   }
 
 }

@@ -91,6 +91,7 @@ export class ListCorpComponent implements OnInit {
 
     getAll() {
         var res = <any>{};
+        console.log(sessionStorage.getItem('token'));
         this.adminService.getAllCorps()
             .then(
                 (result) => {

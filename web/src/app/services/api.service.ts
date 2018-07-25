@@ -5,15 +5,15 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-    headers: {
-    };
+    headers : {};
     token: String;
     api = "http://localhost:3000/";
     constructor( private httpClient : HttpClient ) {
-
+        this.setHeaders()
     }
 
     getToken() {
+      console.log(sessionStorage.getItem('token'));
         return sessionStorage.getItem('token');
     }
 
@@ -22,27 +22,28 @@ export class ApiService {
     }
 
     getHeaders() {
-        return {
-          'Authorization' : this.getToken(),
+
+        return this.headers;
+    }
+
+    setHeaders() {
+        this.headers = {
+          'Authorization' : `${this.getToken()}`,
           'Access-Control-Allow-Origin': '*'
         }
     }
 
-    // setHeaders() {
-    //     this.headers = {
-    //         'Authorization' : this.getToken(),
-    //         'Access-Control-Allow-Origin': '*'
-    //     }
-    // }
-
     get( route:string ) {
+        console.log(this.api + route);
+        console.log(this.getHeaders());
         return new Promise(
             (resolve, reject) => {
                 var options = {
-                    headers : this.getHeaders()
+                    headers : {
+                        'Authorization' : sessionStorage.getItem('token') || '',
+                        'Access-Control-Allow-Origin': '*'
+                    }
                 }
-                console.log(options);
-                //console.log(options);
                 this.httpClient.get(this.api + route, options).subscribe(
                     (data) => {
                         console.log(data);
@@ -61,15 +62,17 @@ export class ApiService {
         return new Promise(
             (resolve, reject) => {
                 var options = {
-                    headers : this.getHeaders()
+                  headers : {
+                      'Authorization' : sessionStorage.getItem('token') || '',
+                      'Access-Control-Allow-Origin': '*'
+                  }
                 }
+                console.log(options);
                 this.httpClient.post(this.api + route, datas, options).subscribe(
                     (data) => {
-                        console.log(data);
                         resolve(data);
                     },
                     (error) => {
-                        console.log(error);
                         reject(error);
                     }
                 )
@@ -80,13 +83,14 @@ export class ApiService {
     put( route: string, datas: Object) {
         return new Promise(
             (resolve, reject) => {
-                console.log(route);
                 var options = {
-                    headers : this.getHeaders()
+                  headers : {
+                      'Authorization' : sessionStorage.getItem('token'),
+                      'Access-Control-Allow-Origin': '*'
+                  }
                 }
                 this.httpClient.put(this.api + route, datas, options).subscribe(
                     (data) => {
-                        console.log(data);
                         resolve(data);
                     },
                     (error) => {
@@ -103,7 +107,10 @@ export class ApiService {
         return new Promise(
             (resolve, reject) => {
                 var options = {
-                    headers : this.getHeaders()
+                  headers : {
+                      'Authorization' : sessionStorage.getItem('token') || '',
+                      'Access-Control-Allow-Origin': '*'
+                  }
                 }
                 this.httpClient.delete(this.api + route, options)
                     .subscribe(

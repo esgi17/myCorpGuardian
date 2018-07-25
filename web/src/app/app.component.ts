@@ -11,12 +11,11 @@ export class AppComponent implements OnInit {
     title = 'app';
 
     constructor( private authService: AuthService, private router: Router) {
-
         this.authService.checkLogin()
             .then(
                 (data) => {
+                    console.log(sessionStorage.getItem('isAdmin'));
                     if( sessionStorage.getItem('isAdmin') == "1" ) {
-
                         this.router.navigate(['/admin']);
                     } else {
                           this.router.navigate(['/home']);

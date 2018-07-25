@@ -18,6 +18,7 @@ export class AdminService {
                           resolve(result);
                       },
                       (error) => {
+                          console.log(sessionStorage.getItem('token'));
                           console.log("yoo");
                           reject(error);
                       }
