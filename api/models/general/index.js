@@ -8,12 +8,10 @@ const Op = Sequelize.Op;
 const basename = path.basename(module.filename);
 
 const GeneralModelIndex = {};
-console.log(basename);
 GeneralModelIndex.getModel = function (modelName) {
     return this[modelName];
 };
 
-console.log(config);
 
 const sequelize = new Sequelize(config.general_bdd.dbname, config.general_bdd.user, config.general_bdd.password, {
     host: config.general_bdd.host,
@@ -44,7 +42,6 @@ Object.keys(GeneralModelIndex)
 
 GeneralModelIndex.sequelize = sequelize;
 GeneralModelIndex.openDatabase = function() {
-    console.log("yooo");
     return sequelize
         .authenticate()
             .then( () => {

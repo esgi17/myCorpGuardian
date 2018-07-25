@@ -47,7 +47,6 @@ AdminController.verifyPassword = function (pwd, pwd1) {
 AdminController.checkToken = function (token, secret) {
     if (token) {
         try {
-            console.log("token : " + token)
             var decoded = jwt.verify(token, secret);
             return true;
         } catch (err) {
