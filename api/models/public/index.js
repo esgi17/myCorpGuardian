@@ -27,7 +27,7 @@ class ModelIndex {
                       resolve(this.sequelize);
                   })
                   .catch( (err) => {
-                      console.log(err);
+                      console.error(err);
                       reject()
                   });
             }
@@ -73,11 +73,11 @@ class ModelIndex {
                           })*/
                   })
                   .catch( (err) => {
-                      console.log(err);
+                      console.error(err);
                   })
                 )
                 .catch((err) => {
-                    console.log(err);
+                    console.error(err);
                 });
 
     }
