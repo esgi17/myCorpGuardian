@@ -64,13 +64,13 @@ class ModelIndex {
             .authenticate()
                 .then(() => this.sequelize.sync({force : false})
                   .then(() => {
-                      Object.keys(ModelIndex)
+                      /*Object.keys(ModelIndex)
                           .forEach((modelName) => {
                               if (ModelIndex[modelName].synchro){
                                   //ModelIndex[modelName].synchro(ModelIndex);
 
                               }
-                          })
+                          })*/
                   })
                   .catch( (err) => {
                       console.log(err);
