@@ -71,18 +71,21 @@ public class HomeController{
     private void setArmBtn() throws Exception {
         JSONObject body = new JSONObject();
         String armed = Api.callAPI("GET","state/",body);
-        JSONObject json = new JSONObject(armed);
-        System.out.println(json);
-        JSONArray jArray = new JSONArray(json.getString("datas"));
-        JSONObject state = jArray.getJSONObject(0);
+        if(!armed.equalsIgnoreCase("")){
 
-        if(state.getString("state").equalsIgnoreCase("true")){
-            armBtn.setText("ARMED");
-            armBtn.setSelected(true);
-        }
-        else{
-            armBtn.setText("DISARMED");
-            armBtn.setSelected(false);
+            JSONObject json = new JSONObject(armed);
+            System.out.println(json);
+            JSONArray jArray = new JSONArray(json.getString("datas"));
+            JSONObject state = jArray.getJSONObject(0);
+
+            if(state.getString("state").equalsIgnoreCase("true")){
+                armBtn.setText("ARMED");
+                armBtn.setSelected(true);
+            }
+            else{
+                armBtn.setText("DISARMED");
+                armBtn.setSelected(false);
+            }
         }
     }
 

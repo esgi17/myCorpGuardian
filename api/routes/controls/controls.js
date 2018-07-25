@@ -1,4 +1,4 @@
-const express = require('express');
+express = require('express');
 const bodyParser = require('body-parser');
 const controllers = require('../../controllers');
 const publicRoute = require('../public');
@@ -22,7 +22,7 @@ controlsRouter.use(bodyParser.json());
 
 
 controlsRouter.use(function ( req, res, next ){
-  console.log("Insert event");
+
   // Inserer un event
   // Si ok =>
   next();
@@ -222,23 +222,23 @@ controlsRouter.post('/', function(req, res){
                             datas : event
                           });
                         }).catch((err) => {
-                          console.log(err);
+                          console.error(err);
                           res.status(500).end();
                         });
                       }).catch((err) => {
-                        console.log(err);
+                        console.error(err);
                         res.status(501).end();
                       });
                     }).catch((err) => {
-                      console.log(err);
+                      console.error(err);
                       res.status(502).end();
                     });
                   }).catch((err) => {
-                    console.log(err);
+                    console.error(err);
                     res.status(503).end();
                   });
                 }).catch((err) => {
-                  console.log(err);
+                  console.error(err);
                   res.status(504).end();
                 });
               }).catch((err) => {
