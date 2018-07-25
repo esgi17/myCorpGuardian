@@ -19,19 +19,17 @@ export class AppComponent implements OnInit {
 
                         this.router.navigate(['/admin']);
                     } else {
-                        console.log(sessionStorage.getItem('isAdmin'));
                           this.router.navigate(['/home']);
                     }
                 },
                 (error) => {
+                    console.error(error);
                     this.router.navigate(['/login']);
                 }
             )
     }
 
     isLogged() {
-        console.log(sessionStorage.getItem('isLogged'));
-        console.log(sessionStorage.getItem('isAdmin'))
         if( sessionStorage.getItem('isLogged') != "1" ) {
             return false;
         }

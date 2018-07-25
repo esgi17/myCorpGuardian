@@ -11,12 +11,14 @@ export class AdminService {
   getAllCorps() {
       return new Promise(
           (resolve, reject) => {
+              console.log(sessionStorage.getItem('token'));
               this.apiService.get("corp")
                   .then(
                       (result) => {
                           resolve(result);
                       },
                       (error) => {
+                          console.log("yoo");
                           reject(error);
                       }
                   )

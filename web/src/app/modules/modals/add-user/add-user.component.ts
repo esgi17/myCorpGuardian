@@ -33,14 +33,13 @@ export class AddUserComponent implements OnInit {
         var res = <any>{};
         res = this.activeCorp
         const id = res.id;
-        console.log(id);
         const datas = {
             login : login,
             password : password,
             isAdmin : isAdmin,
             corp_id : id
         }
-        console.log(datas);
+
         this.adminService.createUser(datas)
             .then( (result) => {
 

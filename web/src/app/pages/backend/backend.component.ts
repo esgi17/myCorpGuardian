@@ -24,11 +24,11 @@ export class BackendComponent implements OnInit {
 
                       this.router.navigate(['/admin']);
                   } else {
-                        console.log(sessionStorage.getItem('isAdmin'));
                         this.router.navigate(['/home']);
                   }
               },
               (error) => {
+                  console.error(error);
                   this.router.navigate(['/login']);
               }
           )
@@ -100,9 +100,9 @@ export class BackendComponent implements OnInit {
    }
 
   ngOnInit() {
-      if( sessionStorage.getItem('isAdmin') == "1" && this.router.url == '/admin') {
-          this.router.navigate(['/admin'])
-      }
+      // if( sessionStorage.getItem('isAdmin') == "1") {
+      //     this.router.navigate(['/admin'])
+      // }
   }
 
 }

@@ -18,11 +18,11 @@
               <tbody>
                   <tr *ngFor="let corp of corps" [ngClass]="isSelected(corp.id) ? 'active-tr' : ''">
                       <td> {{corp?.id}} </td>
-                      <td (click)="(modifyName = true)"> <span *ngIf="modifyName==false || !isSelected(corp.id)" class="label">{{corp?.name}}</span><span *ngIf="modifyName && isSelected(corp.id)"><input #corpName type="text" (blur)="changeCorpName(corp?.id, corpName.value)" corpName.value=""></span> </td>
-                      <td (click)="(modifyUrl = true)"> <span *ngIf="modifyUrl==false || !isSelected(corp.id)" class="label"> {{corp?.db_url}}</span><span *ngIf="modifyUrl && isSelected(corp.id)"><input #corpUrl type="text" (blur)="changeCorpUrl(corp?.id, corpUrl.value)" corpUrl.value=""></span> </td>
-                      <td (click)="(modifyDbName = true)"> <span *ngIf="modifyDbName==false || !isSelected(corp.id)" class="label"> {{corp?.db_name}}</span><span *ngIf="modifyDbName && isSelected(corp.id)"><input #corpDbName type="text" (blur)="changeCorpDbName(corp?.id, corpDbName.value)" corpName.value=""></span> </td>
-                      <td (click)="(modifyDbLogin = true)"> <span *ngIf="modifyDbLogin==false || !isSelected(corp.id)" class="label"> {{corp?.db_login}}</span><span *ngIf="modifyDbLogin && isSelected(corp.id)"><input #corpDbLogin type="text" (blur)="changeCorpDbLogin(corp?.id, corpDbLogin.value)" corpDbLogin.value=""></span> </td>
-                      <td (click)="(modifyDbPassword = true)"> <span *ngIf="modifyDbPassword==false || !isSelected(corp.id)" class="label"> {{corp?.db_pwd}}</span><span *ngIf="modifyDbPassword && isSelected(corp.id)"><input #corpDbPassword type="text" (blur)="changeCorpDbPassword(corp?.id, corpDbPassword.value)" corpDbPassword.value=""></span> </td>
+                      <td> {{corp?.name}} </td>
+                      <td> {{corp?.db_url}}</td>
+                      <td> {{corp?.db_name}} </td>
+                      <td> {{corp?.db_login}}</td>
+                      <td> {{corp?.db_pwd}} </td>
                       <td> {{corp?.created_at | date : 'dd/MM/yy'}} </td>
                       <td> {{corp?.user?.length}} </td>
                       <td class="d-flex justify-content-around">

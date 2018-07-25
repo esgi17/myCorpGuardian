@@ -96,7 +96,6 @@ export class ListCorpComponent implements OnInit {
                 (result) => {
                       res = result;
                       this.corps = <Array<Object>>Object.keys(res.datas).map( key => res.datas[key]);
-                      console.log(this.corps);
                  },
                  (error) => {
                      console.log(error);
@@ -106,116 +105,6 @@ export class ListCorpComponent implements OnInit {
                     console.log(error);
                 }
             )
-    }
-
-    changeCorpName(id, corpName) {
-        this.modifyName = false;
-        if( corpName === undefined || corpName == "") {
-            return true;
-        }
-        if( confirm('Are you sure you want to change the name of this corporation for : ' + corpName + ' ?') ) {
-            this.adminService.changeCorpName(id, corpName)
-                .then(
-                    (result) => {
-                        this.ngOnInit();
-                    },
-                    (error) => {
-                        return false;
-                    }
-                )
-                .catch( (err) => {
-                    return false;
-                })
-        }
-
-    }
-
-    changeCorpUrl(id, corpUrl) {
-        this.modifyUrl = false;
-        if( corpUrl === undefined || corpUrl == "") {
-            return true;
-        }
-        if( confirm('Are you sure you want to change the name of this corporation for : ' + id + corpUrl + ' ?') ) {
-            this.adminService.changeCorpUrl(id, corpUrl)
-                .then(
-                    (result) => {
-                        this.ngOnInit();
-                    },
-                    (error) => {
-                        return false;
-                    }
-                )
-                .catch( (err) => {
-                    return false;
-                })
-        }
-
-    }
-
-    changeCorpDbName(id, corpDbName) {
-        this.modifyDbName = false;
-        if( corpDbName === undefined || corpDbName == "") {
-            return true;
-        }
-        if( confirm('Are you sure you want to change the name of the database for : ' + corpDbName + ' ?') ) {
-            this.adminService.changeCorpDbName(id, corpDbName)
-                .then(
-                    (result) => {
-
-                        this.ngOnInit();
-                    },
-                    (error) => {
-                        return false;
-                    }
-                )
-                .catch( (err) => {
-                    return false;
-                })
-        }
-    }
-
-    changeCorpDbLogin(id, corpDbLogin) {
-        this.modifyDbLogin = false;
-        if( corpDbLogin === undefined || corpDbLogin == "") {
-            return true;
-        }
-        if( confirm('Are you sure you want to change the name of the database for : ' + corpDbLogin + ' ?') ) {
-            this.adminService.changeCorpDbLogin(id, corpDbLogin)
-                .then(
-                    (result) => {
-
-                        this.ngOnInit();
-                    },
-                    (error) => {
-                        return false;
-                    }
-                )
-                .catch( (err) => {
-                    return false;
-                })
-        }
-    }
-
-    changeCorpDbPassword(id, corpDbPassword) {
-        this.modifyDbPassword = false;
-        if( corpDbPassword === undefined || corpDbPassword == "") {
-            return true;
-        }
-        if( confirm('Are you sure you want to change the name of the database for : ' + corpDbPassword + ' ?') ) {
-            this.adminService.changeCorpDbPassword(id, corpDbPassword)
-                .then(
-                    (result) => {
-
-                        this.ngOnInit();
-                    },
-                    (error) => {
-                        return false;
-                    }
-                )
-                .catch( (err) => {
-                    return false;
-                })
-        }
     }
 
     deleteCorp(corp) {
@@ -249,7 +138,6 @@ export class ListCorpComponent implements OnInit {
 
     ngOnInit() {
         this.getAll();
-        console.log(this.modifyName)
     }
 
     modifyNamee() {

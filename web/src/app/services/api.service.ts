@@ -5,11 +5,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-    headers: {};
+    headers: {
+    };
     token: String;
     api = "http://localhost:3000/";
     constructor( private httpClient : HttpClient ) {
-        this.setHeaders();
+
     }
 
     getToken() {
@@ -21,15 +22,18 @@ export class ApiService {
     }
 
     getHeaders() {
-        return this.headers;
-    }
-
-    setHeaders() {
-        this.headers = {
-            'Authorization' : this.getToken() || '',
-            'Access-Control-Allow-Origin': '*'
+        return {
+          'Authorization' : this.getToken(),
+          'Access-Control-Allow-Origin': '*'
         }
     }
+
+    // setHeaders() {
+    //     this.headers = {
+    //         'Authorization' : this.getToken(),
+    //         'Access-Control-Allow-Origin': '*'
+    //     }
+    // }
 
     get( route:string ) {
         return new Promise(
@@ -37,10 +41,11 @@ export class ApiService {
                 var options = {
                     headers : this.getHeaders()
                 }
+                console.log(options);
                 //console.log(options);
                 this.httpClient.get(this.api + route, options).subscribe(
                     (data) => {
-                  //      console.log(data);
+                        console.log(data);
                         resolve(data);
                     },
                     (error) => {

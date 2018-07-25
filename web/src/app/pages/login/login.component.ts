@@ -41,10 +41,10 @@ export class LoginComponent implements OnInit {
         }
         this.authService.login(datas).then(
             (result) => {
-                console.log(result);
                 var res = <any>{};
                 res = result;
                 if( res.isAdmin == 1 ) {
+                    sessionStorage.setItem('token', res.token);
                     sessionStorage.setItem("isAdmin", "1");
                     this.router.navigate(['/admin']);
                 } else {
