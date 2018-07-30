@@ -204,6 +204,18 @@ public class DoorController {
             saturdayCloseSlider.setValue(mondayCloseSlider.getValue());
             sundayOpenSlider.setValue(mondayOpenSlider.getValue());
             sundayCloseSlider.setValue(mondayCloseSlider.getValue());
+            tuesdayOpenSlider.setValue(mondayOpenSlider.getValue());
+            tuesdayCloseSlider.setValue(mondayCloseSlider.getValue());
+            wednesdayOpenSlider.setValue(mondayOpenSlider.getValue());
+            wednesdayCloseSlider.setValue(mondayCloseSlider.getValue());
+            thursdayOpenSlider.setValue(mondayOpenSlider.getValue());
+            thursdayCloseSlider.setValue(mondayCloseSlider.getValue());
+            fridayOpenSlider.setValue(mondayOpenSlider.getValue());
+            fridayCloseSlider.setValue(mondayCloseSlider.getValue());
+            saturdayOpenSlider.setValue(mondayOpenSlider.getValue());
+            saturdayCloseSlider.setValue(mondayCloseSlider.getValue());
+            sundayOpenSlider.setValue(mondayOpenSlider.getValue());
+            sundayCloseSlider.setValue(mondayCloseSlider.getValue());
         }
         else {
             mondayOpen.textProperty().setValue(getHour(mondayOpenSlider.getValue()));
