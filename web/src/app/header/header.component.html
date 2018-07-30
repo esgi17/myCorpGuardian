@@ -1,0 +1,27 @@
+<div id="sidebar-wrapper" class="col">
+    <ul class="sidebar-nav" *ngIf="!isAdmin()">
+        <li>
+            <a id="logo" class=""><img alt="home icon" src="assets/images/logo.png"></a>
+        </li>
+        <li>
+            <a id="home" class="nav-link" routerLinkActive="active" routerLink="home" href="#"><img alt="home icon" src="assets/images/home.png"></a>
+        </li>
+        <li>
+            <a id="users" class="nav-link" routerLinkActive="active" routerLink="user" href="#"><img alt="user icon" src="assets/images/user.png"></a>
+        </li>
+        <li>
+            <a id="logout" class="nav-link" (click)="logout()"> <img alt="logout icon" src="assets/images/logout.png"></a>
+        </li>
+    </ul>
+    <ul class="sidebar-nav" *ngIf="isAdmin()">
+        <li>
+            <a id="logo" class=""><img alt="home icon" src="assets/images/logo.png"></a>
+        </li>
+        <li>
+            <a id="home-admin" class="nav-link" routerLinkActive="active" routerLink="admin" href="#"><img alt="home icon" src="assets/images/home.png"></a>
+        </li>
+        <li>
+            <a id="logout" class="nav-link" (click)="logout()"> <img alt="logout icon" src="assets/images/logout.png"></a>
+        </li>
+    </ul>
+</div>

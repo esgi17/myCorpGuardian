@@ -1,0 +1,37 @@
+<div id="container-listCorps" class="container-list container-fluid">
+    <h2> Corporation registered <span class="btn_addCorp"> <button class="btn btn-md btn-primary" (click)="createCorpModal()">Create Corp.</button> </span></h2>
+    <div id="container-tableListCorps" [ngClass]="getStyle()">
+        <table class="table table-bordered">
+              <thead class="thead-dark">
+                  <tr>
+                    <th scope="col"> # </th>
+                    <th scope="col"> Name </th>
+                    <th scope="col"> Database URL </th>
+                    <th scope="col"> Database Name </th>
+                    <th scope="col"> Database login </th>
+                    <th scope="col"> Database password </th>
+                    <th scope="col"> Date of creation </th>
+                    <th scope="col"> Number of users </th>
+                    <th scope="col"> Action </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let corp of corps" [ngClass]="isSelected(corp.id) ? 'active-tr' : ''">
+                      <td> {{corp?.id}} </td>
+                      <td> {{corp?.name}} </td>
+                      <td> {{corp?.db_url}}</td>
+                      <td> {{corp?.db_name}} </td>
+                      <td> {{corp?.db_login}}</td>
+                      <td> {{corp?.db_pwd}} </td>
+                      <td> {{corp?.created_at | date : 'dd/MM/yy'}} </td>
+                      <td> {{corp?.user?.length}} </td>
+                      <td class="d-flex justify-content-around">
+                          <img class="action_btn" (click)="modifyCorp(corp)" alt="modifyCorp" src="../../../assets/images/modify.png">
+                          <img class="action_btn" (click)="addUserCorp(corp)" alt="addUser" src="../../../assets/images/add-user.png">
+                          <img class="action_btn" (click)="deleteCorp(corp)" alt="delete" src="../../../assets/images/delete.png">
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+</div>
