@@ -10,14 +10,16 @@ import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-boots
   styleUrls: ['./backend.component.css']
 })
 export class BackendComponent implements OnInit {
-  activeCorp : Object;
-  closeResult: string;
-  createCorpActive: Boolean;
-  editCorpActive: Boolean;
-  addUserActive: Boolean;
+    activeCorp : Object;
+    closeResult: string;
+    createCorpActive: Boolean;
+    editCorpActive: Boolean;
+    addUserActive: Boolean;
+    managePluginActive: Boolean;
+    plugins: Array<Object>;
 
   constructor( private authService: AuthService, private modalService: NgbModal, private router: Router) {
-      
+
    }
 
    loadCreateCorp($event, content) {
@@ -54,6 +56,22 @@ export class BackendComponent implements OnInit {
             .catch( (err) => {
                 console.log(err);
             })
+   }
+
+   loadManagePlugin($event, content) {
+      this.managePluginActive = true;
+      this.plugins = content.plugins;
+      var res = <any>{};
+      res = content;
+      console.log(res);
+      this.activeCorp = content.corp;
+      this.openModal(content)
+          .then( () => {
+              this.managePluginActive = false;
+          })
+          .catch( (err) => {
+             console.log(err);
+          })
    }
 
    openModal(content) {

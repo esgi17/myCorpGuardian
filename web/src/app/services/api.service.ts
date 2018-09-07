@@ -38,11 +38,22 @@ export class ApiService {
         console.log(this.getHeaders());
         return new Promise(
             (resolve, reject) => {
-                var options = {
-                    headers : {
-                        'Authorization' : sessionStorage.getItem('token') || '',
-                        'Access-Control-Allow-Origin': '*'
-                    }
+                var options = {};
+                if( route == "download" ) {
+                  options = {
+                      headers : {
+                          'Authorization' : sessionStorage.getItem('token') || '',
+                          'Access-Control-Allow-Origin': '*'
+                      },
+                      responseType : "blob"
+                  }
+                } else {
+                  options = {
+                      headers : {
+                          'Authorization' : sessionStorage.getItem('token') || '',
+                          'Access-Control-Allow-Origin': '*'
+                      }
+                  }
                 }
                 this.httpClient.get(this.api + route, options).subscribe(
                     (data) => {

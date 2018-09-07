@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -31,6 +31,7 @@ import { ListCorpComponent } from './modules/list/list-corp/list-corp.component'
 import { FormCorpComponent } from './modules/form-corp/form-corp.component';
 import { AddUserComponent } from './modules/modals/add-user/add-user.component';
 import { EditCorpComponent } from './modules/modals/edit-corp/edit-corp.component';
+import { ManagePluginComponent } from './modules/modals/manage-plugin/manage-plugin.component';
 
 
 const appRoutes : Routes = [
@@ -71,7 +72,8 @@ const appRoutes : Routes = [
     ListCorpComponent,
     FormCorpComponent,
     AddUserComponent,
-    EditCorpComponent
+    EditCorpComponent,
+    ManagePluginComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +85,7 @@ const appRoutes : Routes = [
     NgbModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}

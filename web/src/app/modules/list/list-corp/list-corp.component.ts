@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router'
 import { AdminService } from '../../../services/admin.service';
 import { UserService } from '../../../services/user.service';
+import { PluginService } from '../../../services/plugin.service';
 import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -23,7 +24,9 @@ export class ListCorpComponent implements OnInit {
     @Output() editCorp = new EventEmitter<Object>();
     @Output() createCorp = new EventEmitter<Boolean>();
     @Output() activeCorp = new EventEmitter<Object>();
-    constructor( private adminService: AdminService, private modalService: NgbModal, private userService: UserService, private router : Router) { }
+    @Output() managePlugin = new EventEmitter<Object>();
+
+    constructor( private adminService: AdminService, private modalService: NgbModal, private userService: UserService, private pluginService: PluginService, private router : Router) { }
 
 
     getStyle() {
@@ -135,6 +138,25 @@ export class ListCorpComponent implements OnInit {
     addUserCorp(corp) {
         console.log(corp)
         this.selectActiveCorp(corp)
+    }
+
+    managePlugins(corp) {
+        var tmpPlugins = Array<Object>();
+        this.pluginService.getAll()
+            .then(
+                (plugin) => {
+                    var res = <any>{};
+                    res = plugin;
+                    tmpPlugins = <Array<Object>>Object.keys(res.datas).map( key => res.datas[key]);
+                    this.managePlugin.emit({plugins : tmpPlugins, corp : corp});
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
+            .catch( (err) => {
+                console.log(err);
+            })
     }
 
     ngOnInit() {

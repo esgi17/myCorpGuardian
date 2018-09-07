@@ -52,15 +52,6 @@ export class EditCorpComponent implements OnInit {
                 console.log(error);
             })
             return true;
-        // this.adminService.createCorp(datas)
-        //     .then( (result) => {
-        //         console.log(result);
-        //         this.router.navigate(['/admin']);
-        //     })
-        //     .catch( (err) => {
-        //         console.log(err);
-        //     })
-        //     return true;
     }
 
     ngOnInit() {
